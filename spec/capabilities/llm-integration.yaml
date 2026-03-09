@@ -1,0 +1,147 @@
+# Spec: LLM Integration Capability
+# 大模型集成能力规格说明
+
+capability:
+  name: llm-integration
+  version: 1.0.0
+  description: 大模型对话生成和意向分析
+
+providers:
+  - name: dashscope
+    model: qwen-max
+    endpoint: https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation
+    priority: 1
+  
+  - name: deepseek
+    model: deepseek-chat
+    endpoint: https://api.deepseek.com/v1/chat/completions
+    priority: 2
+
+interfaces:
+  # 对话生成
+  chat_completion:
+    endpoint: POST /api/v1/llm/chat
+    request:
+      content_type: application/json
+      body:
+        conversation_id: string (required)
+        messages: array[object] (required)
+        template_id: string (optional)
+        mode: enum [PRESET, FREE]
+        max_tokens: integer (optional, default: 1000)
+        temperature: number (optional, default: 0.7)
+    response:
+      success:
+        message_id: string
+        content: string
+        model: string
+        usage:
+          prompt_tokens: integer
+          completion_tokens: integer
+          total_tokens: integer
+      error:
+        code: string
+        message: string
+
+  # 意向分析
+  intent_analysis:
+    endpoint: POST /api/v1/llm/intent/analyze
+    request:
+      content_type: application/json
+      body:
+        conversation_id: string (required)
+        messages: array[object] (required)
+        scoring_rules: object (optional)
+    response:
+      success:
+        intent_score:
+          total_score: number
+          level: enum [A, B, C, D]
+          dimensions:
+            responsiveness: number
+            interest: number
+            urgency: number
+            match: number
+          reasoning: string
+      error:
+        code: string
+        message: string
+
+  # 用户分层分析
+  user_segmentation:
+    endpoint: POST /api/v1/llm/segmentation/analyze
+    request:
+      content_type: application/json
+      body:
+        contact_id: string (required)
+        profile_data: object
+        behavior_data: object
+    response:
+      success:
+        segment: string
+        confidence: number
+        tags: array[string]
+        reasoning: string
+
+prompt_templates:
+  # 开场白生成
+  opening_prompt: |
+    你是一名专业的销售助手，请根据以下信息生成一段友好的开场白：
+    - 用户姓名：{name}
+    - 用户行业：{industry}
+    - 产品/服务：{product}
+    - 场景：{scenario}
+    
+    要求：简洁、亲切、不超过 50 字
+
+  # 意向分析 prompt
+  intent_analysis_prompt: |
+    请分析以下对话中用户的意向程度，从以下维度打分 (0-100)：
+    1. 响应度：回复速度、回复长度、主动性
+    2. 兴趣度：对产品/服务的关注程度、提问深度
+    3. 紧迫度：时间敏感性、决策周期
+    4. 匹配度：用户需求与产品的匹配程度
+    
+    对话内容：
+    {conversation}
+    
+    请以 JSON 格式返回：
+    {
+      "dimensions": {"responsiveness": 0-100, "interest": 0-100, "urgency": 0-100, "match": 0-100},
+      "total_score": 0-100,
+      "level": "A/B/C/D",
+      "reasoning": "分析理由"
+    }
+
+cost_control:
+  # 成本控制策略
+  daily_budget: 1000  # 每日预算 (元)
+  max_tokens_per_request: 2000
+  batch_analysis: true  # 批量分析以节省成本
+  
+  # 分级策略
+  tier_strategy:
+    - level: A
+      model: qwen-max
+      analysis_frequency: REAL_TIME
+    - level: B
+      model: qwen-plus
+      analysis_frequency: EVERY_5_TURNS
+    - level: C
+      model: qwen-turbo
+      analysis_frequency: END_OF_CONVERSATION
+    - level: D
+      model: RULE_BASED  # 用规则引擎，不用大模型
+
+error_codes:
+  - code: LLM_RATE_LIMIT
+    message: "超过大模型调用频率限制"
+    http_status: 429
+  
+  - code: LLM_TIMEOUT
+    message: "大模型响应超时"
+    http_status: 504
+  
+  - code: LLM_INVALID_RESPONSE
+    message: "大模型返回格式无效"
+    http_status: 502

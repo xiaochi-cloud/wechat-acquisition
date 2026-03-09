@@ -1,0 +1,103 @@
+# Spec: Data Ingestion Capability
+# 数据导入能力规格说明
+
+capability:
+  name: data-ingestion
+  version: 1.0.0
+  description: 支持多渠道用户数据导入
+
+interfaces:
+  # Excel 导入接口
+  excel_import:
+    endpoint: POST /api/v1/campaigns/{campaignId}/contacts/import/excel
+    request:
+      content_type: multipart/form-data
+      body:
+        file: MultipartFile (required)
+        mapping: 
+          phone_column: string (optional, default: "手机号")
+          name_column: string (optional, default: "姓名")
+    response:
+      success:
+        import_id: string
+        total_count: integer
+        valid_count: integer
+        invalid_count: integer
+      error:
+        code: string
+        message: string
+
+  # API 同步接口
+  api_sync:
+    endpoint: POST /api/v1/data-sources/sync
+    request:
+      content_type: application/json
+      body:
+        source_name: string (required)
+        api_url: string (required)
+        api_key: string (required)
+        sync_mode: enum [FULL, INCREMENTAL]
+        schedule: string (cron expression)
+    response:
+      success:
+        source_id: string
+        status: string
+      error:
+        code: string
+        message: string
+
+  # Webhook 接收接口
+  webhook_listener:
+    endpoint: POST /api/v1/webhooks/{webhookId}
+    request:
+      content_type: application/json
+      body:
+        event_type: string
+        data: object
+    response:
+      success:
+        received: boolean
+        contact_id: string
+      error:
+        code: string
+        message: string
+
+validation_rules:
+  phone_number:
+    pattern: "^1[3-9]\\d{9}$"
+    message: "手机号格式不正确"
+  
+  batch_size:
+    min: 1
+    max: 1000
+    message: "批量大小必须在 1-1000 之间"
+
+rate_limits:
+  excel_import:
+    max_file_size: 10MB
+    max_rows: 100000
+    concurrent_limit: 5
+  
+  api_sync:
+    requests_per_minute: 60
+    concurrent_limit: 10
+  
+  webhook:
+    requests_per_second: 100
+
+error_codes:
+  - code: IMPORT_INVALID_PHONE
+    message: "手机号格式无效"
+    http_status: 400
+  
+  - code: IMPORT_DUPLICATE_PHONE
+    message: "手机号重复"
+    http_status: 400
+  
+  - code: IMPORT_FILE_TOO_LARGE
+    message: "文件过大"
+    http_status: 413
+  
+  - code: API_SYNC_FAILED
+    message: "API 同步失败"
+    http_status: 502

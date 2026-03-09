@@ -1,0 +1,126 @@
+# WeChat Acquisition Platform - Local Development
+# 本地开发环境部署
+
+version: '3.8'
+
+services:
+  # MySQL 数据库
+  mysql:
+    image: mysql:8.0
+    container_name: wechat-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wechat_acquisition
+      MYSQL_USER: wechat
+      MYSQL_PASSWORD: wechat123
+      TZ: Asia/Shanghai
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+      - ./scripts/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: 
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-time-zone=+8:00
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - wechat-network
+
+  # MongoDB (对话记录存储)
+  mongodb:
+    image: mongo:7.0
+    container_name: wechat-mongodb
+    environment:
+      MONGO_INITDB_DATABASE: wechat_acquisition
+      TZ: Asia/Shanghai
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/mongodb:/data/db
+    networks:
+      - wechat-network
+
+  # Redis (缓存和频率控制)
+  redis:
+    image: redis:7-alpine
+    container_name: wechat-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis:/data
+    command: redis-server --appendonly yes
+    networks:
+      - wechat-network
+
+  # RocketMQ (消息队列)
+  rocketmq-namesrv:
+    image: apache/rocketmq:5.1.0
+    container_name: wechat-rocketmq-namesrv
+    ports:
+      - "9876:9876"
+    volumes:
+      - ./data/rocketmq/namesrv:/home/rocketmq/namesrv
+    environment:
+      JAVA_OPT_EXT: "-Xms128m -Xmx128m"
+    command: sh mqnamesrv
+    networks:
+      - wechat-network
+
+  rocketmq-broker:
+    image: apache/rocketmq:5.1.0
+    container_name: wechat-rocketmq-broker
+    ports:
+      - "10911:10911"
+      - "10909:10909"
+    volumes:
+      - ./data/rocketmq/broker:/home/rocketmq/broker
+      - ./scripts/rocketmq/broker.conf:/home/rocketmq/rocketmq-5.1.0/conf/broker.conf
+    environment:
+      NAMESRV_ADDR: rocketmq-namesrv:9876
+      JAVA_OPT_EXT: "-Xms128m -Xmx128m"
+    command: sh mqbroker -c /home/rocketmq/rocketmq-5.1.0/conf/broker.conf
+    depends_on:
+      - rocketmq-namesrv
+    networks:
+      - wechat-network
+
+  # RocketMQ Console (可选)
+  rocketmq-console:
+    image: apache/rocketmq-dashboard:1.0.0
+    container_name: wechat-rocketmq-console
+    ports:
+      - "8081:8080"
+    environment:
+      JAVA_OPTS: "-Drocketmq.namesrv.addr=rocketmq-namesrv:9876"
+    depends_on:
+      - rocketmq-namesrv
+    networks:
+      - wechat-network
+
+  # XXL-Job (任务调度)
+  xxl-job-admin:
+    image: xuxueli/xxl-job-admin:2.4.0
+    container_name: wechat-xxl-job
+    ports:
+      - "8082:8080"
+    environment:
+      PARAMS: "--spring.datasource.url=jdbc:mysql://mysql:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=root"
+    depends_on:
+      - mysql
+    networks:
+      - wechat-network
+
+networks:
+  wechat-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+  mongodb-data:
+  redis-data:
+  rocketmq-data:
