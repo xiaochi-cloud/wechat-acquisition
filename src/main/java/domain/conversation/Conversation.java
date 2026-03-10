@@ -92,7 +92,7 @@ public class Conversation {
 /**
  * 会话状态
  */
-public ConversationStatus {
+public enum ConversationStatus {
     ACTIVE,         // 进行中
     PAUSED,         // 已暂停
     COMPLETED,      // 已完成 (正常结束)
@@ -104,7 +104,7 @@ public ConversationStatus {
 /**
  * 对话模式
  */
-public DialogueMode {
+public enum DialogueMode {
     PRESET,     // 预设流程
     FREE,       // 自由对话
     HYBRID      // 混合模式
