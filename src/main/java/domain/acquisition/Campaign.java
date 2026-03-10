@@ -1,104 +1,57 @@
 package com.wechat.acquisition.domain.acquisition;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
 
-/**
- * 获客活动聚合根
- * 
- * 职责：管理一次完整的获客任务，包括数据源、目标人群、调度策略
- */
-@Data
-@Builder
 public class Campaign {
-    
     private String id;
     private String name;
     private CampaignStatus status;
-    private DataSource dataSource;
-    private TargetAudience targetAudience;
-    private ScheduleConfig scheduleConfig;
-    private RateLimitConfig rateLimitConfig;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     
-    /**
-     * 创建新活动
-     */
-    public static Campaign create(String name, DataSource dataSource, TargetAudience targetAudience) {
-        return Campaign.builder()
-                .id(UUID.randomUUID().toString())
-                .name(name)
-                .dataSource(dataSource)
-                .targetAudience(targetAudience)
-                .status(CampaignStatus.DRAFT)
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
-                .build();
+    public Campaign() {}
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public CampaignStatus getStatus() { return status; }
+    public void setStatus(CampaignStatus status) { this.status = status; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+    
+    public static Campaign create(String name) {
+        Campaign c = new Campaign();
+        c.setId(java.util.UUID.randomUUID().toString());
+        c.setName(name);
+        c.setStatus(CampaignStatus.DRAFT);
+        c.setCreatedAt(LocalDateTime.now());
+        c.setUpdatedAt(LocalDateTime.now());
+        return c;
     }
     
-    /**
-     * 启动活动
-     */
     public void start() {
-        if (this.status != CampaignStatus.DRAFT) {
-            throw new IllegalStateException("只有草稿状态的活动可以启动");
-        }
+        if (this.status != CampaignStatus.DRAFT) throw new IllegalStateException("只有草稿状态的活动可以启动");
         this.status = CampaignStatus.RUNNING;
         this.updatedAt = LocalDateTime.now();
     }
     
-    /**
-     * 暂停活动
-     */
     public void pause() {
-        if (this.status != CampaignStatus.RUNNING) {
-            throw new IllegalStateException("只有运行中的活动可以暂停");
-        }
+        if (this.status != CampaignStatus.RUNNING) throw new IllegalStateException("只有运行中的活动可以暂停");
         this.status = CampaignStatus.PAUSED;
         this.updatedAt = LocalDateTime.now();
     }
     
-    /**
-     * 停止活动
-     */
     public void stop() {
         this.status = CampaignStatus.STOPPED;
         this.updatedAt = LocalDateTime.now();
     }
-    
-    /**
-     * 添加联系人到活动
-     */
-    public void addContact(Contact contact) {
-        // 领域逻辑：验证联系人是否符合目标人群
-        if (!targetAudience.matches(contact)) {
-            throw new IllegalArgumentException("联系人不符合目标人群条件");
-        }
-        // 添加到数据源
-        this.dataSource.addContact(contact);
-    }
 }
 
-/**
- * 活动状态
- */
-@Getter
-public CampaignStatus {
-    DRAFT("草稿"),
-    RUNNING("运行中"),
-    PAUSED("已暂停"),
-    STOPPED("已停止"),
-    COMPLETED("已完成");
-    
+enum CampaignStatus {
+    DRAFT("草稿"), RUNNING("运行中"), PAUSED("已暂停"), STOPPED("已停止"), COMPLETED("已完成");
     private final String description;
-    
-    CampaignStatus(String description) {
-        this.description = description;
-    }
+    CampaignStatus(String description) { this.description = description; }
+    public String getDescription() { return description; }
 }
