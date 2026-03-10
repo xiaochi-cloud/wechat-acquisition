@@ -113,7 +113,7 @@ public class ScriptTemplate {
 /**
  * 模板类型
  */
-public enum TemplateType {
+enum TemplateType {
     TEXT,           // 文本
     IMAGE_TEXT,     // 图文
     LINK,           // 链接
@@ -123,7 +123,7 @@ public enum TemplateType {
 /**
  * 模板状态
  */
-public enum TemplateStatus {
+enum TemplateStatus {
     DRAFT,          // 草稿
     ACTIVE,         // 启用
     DISABLED,       // 禁用
@@ -133,7 +133,7 @@ public enum TemplateStatus {
 /**
  * 对话流程节点
  */
-static class DialogueFlow {
+class DialogueFlow {
     
     private String id;
     private String name;
@@ -164,7 +164,7 @@ static class DialogueFlow {
 /**
  * 流程节点
  */
-static class FlowNode {
+class FlowNode {
     private Integer step;
     private NodeType type;
     private String templateKey;
@@ -175,7 +175,7 @@ static class FlowNode {
 /**
  * 节点类型
  */
-public enum NodeType {
+enum NodeType {
     OPENING,            // 开场
     NEEDS_ANALYSIS,     // 需求分析
     PRODUCT_INTRO,      // 产品介绍
