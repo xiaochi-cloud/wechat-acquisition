@@ -89,7 +89,7 @@ public class Campaign {
  * 活动状态
  */
 @Getter
-public enum CampaignStatus {
+public CampaignStatus {
     DRAFT("草稿"),
     RUNNING("运行中"),
     PAUSED("已暂停"),

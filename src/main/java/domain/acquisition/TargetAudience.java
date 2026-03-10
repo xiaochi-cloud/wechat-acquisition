@@ -66,7 +66,7 @@ public class TargetAudience {
  */
 @Data
 @Builder
-public class AgeRange {
+static class AgeRange {
     private Integer minAge;
     private Integer maxAge;
     
