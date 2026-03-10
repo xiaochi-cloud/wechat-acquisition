@@ -1,5 +1,8 @@
 package com.wechat.acquisition.interfaces.web.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.json.JSONUtil;
@@ -26,6 +29,8 @@ import java.util.Map;
 @RequestMapping("/wechat/callback")
 @RequiredArgsConstructor
 public class WeChatCallbackController {
+
+    private static final Logger log = LoggerFactory.getLogger(WeChatCallbackController.class);
     
     @Value("${wechat.token:}")
     private String token;
