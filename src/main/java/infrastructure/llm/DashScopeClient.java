@@ -1,12 +1,13 @@
 package com.wechat.acquisition.infrastructure.llm;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.alibaba.dashscope.aigc.generation.Generation;
 import com.alibaba.dashscope.aigc.generation.GenerationParam;
 import com.alibaba.dashscope.aigc.generation.GenerationResult;
 import com.alibaba.dashscope.common.Message;
 import com.alibaba.dashscope.common.Role;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -18,8 +19,10 @@ import java.util.List;
  * 
  * 职责：封装大模型调用，包括对话生成、意向分析等
  */
-@Slf4j
+
 @Component
+
+    private static final Logger log = LoggerFactory.getLogger(DashScopeClient.class);
 @RequiredArgsConstructor
 public class DashScopeClient {
     
