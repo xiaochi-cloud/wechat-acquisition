@@ -98,9 +98,6 @@ public enum DataSourceType {
     API,        // API 同步
     WEBHOOK,    // Webhook 接收
     MANUAL      // 手动录入
-}
-
-/**
  * 数据源配置
  */
 public class DataSourceConfig {
@@ -120,4 +117,41 @@ public enum ImportStatus {
     IMPORTING,  // 导入中
     COMPLETED,  // 已完成
     FAILED      // 失败
+}
+
+public class DataSourceConfig {
+    private String filePath;
+    private String apiUrl;
+    private String apiKey;
+    private String webhookPath;
+    private Integer batchSize;
+    
+    public DataSourceConfig() {}
+    public String getFilePath() { return filePath; }
+    public void setFilePath(String filePath) { this.filePath = filePath; }
+    public String getApiUrl() { return apiUrl; }
+    public void setApiUrl(String apiUrl) { this.apiUrl = apiUrl; }
+    public String getApiKey() { return apiKey; }
+    public void setApiKey(String apiKey) { this.apiKey = apiKey; }
+    public String getWebhookPath() { return webhookPath; }
+    public void setWebhookPath(String webhookPath) { this.webhookPath = webhookPath; }
+    public Integer getBatchSize() { return batchSize; }
+    public void setBatchSize(Integer batchSize) { this.batchSize = batchSize; }
+    
+    public static DataSourceConfigBuilder builder() { return new DataSourceConfigBuilder(); }
+    public static class DataSourceConfigBuilder {
+        private String filePath, apiUrl, apiKey, webhookPath;
+        private Integer batchSize;
+        public DataSourceConfigBuilder filePath(String v) { this.filePath = v; return this; }
+        public DataSourceConfigBuilder apiUrl(String v) { this.apiUrl = v; return this; }
+        public DataSourceConfigBuilder apiKey(String v) { this.apiKey = v; return this; }
+        public DataSourceConfigBuilder webhookPath(String v) { this.webhookPath = v; return this; }
+        public DataSourceConfigBuilder batchSize(Integer v) { this.batchSize = v; return this; }
+        public DataSourceConfig build() {
+            DataSourceConfig c = new DataSourceConfig();
+            c.filePath = filePath; c.apiUrl = apiUrl; c.apiKey = apiKey;
+            c.webhookPath = webhookPath; c.batchSize = batchSize;
+            return c;
+        }
+    }
 }
