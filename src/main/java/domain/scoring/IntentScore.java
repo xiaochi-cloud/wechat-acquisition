@@ -66,7 +66,7 @@ public class IntentScore {
     }
 }
 
-enum IntentLevel {
+public enum IntentLevel {
     A(80, 100, "高意向", "立即人工跟进"),
     B(60, 79, "中意向", "持续培育"),
     C(40, 59, "低意向", "自动化触达"),
