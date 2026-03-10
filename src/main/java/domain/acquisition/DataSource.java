@@ -93,7 +93,7 @@ public class DataSource {
 /**
  * 数据源类型
  */
-enum DataSourceType {
+public enum DataSourceType {
     EXCEL,      // Excel 导入
     API,        // API 同步
     WEBHOOK,    // Webhook 接收
@@ -115,7 +115,7 @@ public class DataSourceConfig {
 /**
  * 导入状态
  */
-enum ImportStatus {
+public enum ImportStatus {
     PENDING,    // 待导入
     IMPORTING,  // 导入中
     COMPLETED,  // 已完成
