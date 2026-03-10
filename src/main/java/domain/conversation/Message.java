@@ -71,3 +71,6 @@ public class Message {
         return m;
     }
 }
+
+enum MessageDirection { FROM_USER, FROM_AI, SYSTEM }
+enum MessageType { TEXT, IMAGE, LINK, FILE, VOICE, SYSTEM }
