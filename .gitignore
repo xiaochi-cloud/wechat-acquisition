@@ -1,16 +1,10 @@
-# Compiled class file
+# ================================
+# Java / Maven
+# ================================
 *.class
-
-# Log file
 *.log
-
-# BlueJ files
 *.ctxt
-
-# Mobile Tools for Java (J2ME)
 .mtj.tmp/
-
-# Package Files
 *.jar
 *.war
 *.nar
@@ -18,11 +12,7 @@
 *.zip
 *.tar.gz
 *.rar
-
-# virtual machine crash logs
 hs_err_pid*
-
-# Maven
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -34,7 +24,9 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+# ================================
 # IDE
+# ================================
 .idea/
 *.iml
 *.ipr
@@ -43,19 +35,103 @@ buildNumber.properties
 .classpath
 .settings/
 .vscode/
+*.swp
+*.swo
+*~
 
+# ================================
 # OS
+# ================================
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
-# Data
+# ================================
+# 配置文件 (敏感信息)
+# ================================
+*.env
+*.env.local
+*.env.dev
+*.env.prod
+application-local.yml
+application-dev.yml
+application-prod.yml
+application-*.yml
+!application.yml
 deploy/local/data/
 
-# Configuration
-*.env
-application-local.yml
-application-prod.yml
-
-# Logs
+# ================================
+# 日志
+# ================================
 logs/
 *.log
+log/
+
+# ================================
+# 前端 Node.js
+# ================================
+frontend/node_modules/
+frontend/dist/
+frontend/.nuxt/
+frontend/.output/
+frontend/package-lock.json
+frontend/yarn.lock
+frontend/pnpm-lock.yaml
+frontend/.npm
+frontend/.yarn
+frontend/.cache/
+
+# ================================
+# 数据库
+# ================================
+*.db
+*.sqlite
+*.sqlite3
+
+# ================================
+# 临时文件
+# ================================
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+*~
+
+# ================================
+# 证书密钥
+# ================================
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+ssh_host_*
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+
+# ================================
+# Docker
+# ================================
+docker-compose.override.yml
+.docker/
+
+# ================================
+# 测试
+# ================================
+coverage/
+.nyc_output/
+test-results/
+
+# ================================
+# 其他
+# ================================
+*.orig
+.hg/
+.bzr/
