@@ -1,7 +1,5 @@
 package com.wechat.acquisition.domain.conversation;
 
-import lombok.Builder;
-import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,8 +12,6 @@ import java.util.UUID;
  * 
  * 职责：管理可配置的对话策略，支持多场景、多版本
  */
-@Data
-@Builder
 public class ScriptTemplate {
     
     private String id;
@@ -133,8 +129,6 @@ public enum TemplateStatus {
 /**
  * 对话流程节点
  */
-@Data
-@Builder
 static class DialogueFlow {
     
     private String id;
@@ -166,8 +160,6 @@ static class DialogueFlow {
 /**
  * 流程节点
  */
-@Data
-@Builder
 static class FlowNode {
     private Integer step;
     private NodeType type;

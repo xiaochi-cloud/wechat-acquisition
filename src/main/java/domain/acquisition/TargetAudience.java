@@ -1,7 +1,5 @@
 package com.wechat.acquisition.domain.acquisition;
 
-import lombok.Builder;
-import lombok.Data;
 
 import java.util.List;
 import java.util.Map;
@@ -11,8 +9,6 @@ import java.util.Map;
  * 
  * 职责：定义获客活动的目标用户条件，用于过滤和分层
  */
-@Data
-@Builder
 public class TargetAudience {
     
     private List<String> targetCities;          // 目标城市
@@ -64,8 +60,6 @@ public class TargetAudience {
 /**
  * 年龄范围
  */
-@Data
-@Builder
 static class AgeRange {
     private Integer minAge;
     private Integer maxAge;

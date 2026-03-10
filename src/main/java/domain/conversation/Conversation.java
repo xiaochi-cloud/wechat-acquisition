@@ -1,7 +1,5 @@
 package com.wechat.acquisition.domain.conversation;
 
-import lombok.Builder;
-import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,8 +11,6 @@ import java.util.UUID;
  * 
  * 职责：管理与用户的完整对话过程，包括消息记录、意向打分、状态流转
  */
-@Data
-@Builder
 public class Conversation {
     
     private String id;

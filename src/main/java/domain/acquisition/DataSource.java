@@ -1,7 +1,5 @@
 package com.wechat.acquisition.domain.acquisition;
 
-import lombok.Builder;
-import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +9,6 @@ import java.util.List;
  * 
  * 职责：管理用户数据来源，支持多渠道导入
  */
-@Data
-@Builder
 public class DataSource {
     
     private String id;
@@ -103,8 +99,6 @@ public enum DataSourceType {
 /**
  * 数据源配置
  */
-@Data
-@Builder
 public class DataSourceConfig {
     private String filePath;      // Excel 文件路径
     private String apiUrl;        // API 地址
