@@ -113,7 +113,7 @@ public class ScriptTemplate {
 /**
  * 模板类型
  */
-public TemplateType {
+public enum TemplateType {
     TEXT,           // 文本
     IMAGE_TEXT,     // 图文
     LINK,           // 链接
@@ -123,7 +123,7 @@ public TemplateType {
 /**
  * 模板状态
  */
-public TemplateStatus {
+public enum TemplateStatus {
     DRAFT,          // 草稿
     ACTIVE,         // 启用
     DISABLED,       // 禁用
@@ -179,7 +179,7 @@ static class FlowNode {
 /**
  * 节点类型
  */
-public NodeType {
+public enum NodeType {
     OPENING,            // 开场
     NEEDS_ANALYSIS,     // 需求分析
     PRODUCT_INTRO,      // 产品介绍
