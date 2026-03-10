@@ -1,0 +1,107 @@
+# Spec: WeChat Integration Capability
+# 企业微信对接能力规格说明
+
+capability:
+  name: wechat-integration
+  version: 1.0.0
+  description: 企业微信 API 对接，支持自动加好友、发消息
+
+interfaces:
+  # 自动加好友
+  friend_auto_add:
+    endpoint: POST /api/v1/wechat/friends/add
+    request:
+      content_type: application/json
+      body:
+        contact_id: string (required)
+        phone_number: string (required)
+        wechat_account_id: string (optional, 自动分配)
+        add_message: string (optional, 好友申请语)
+    response:
+      success:
+        task_id: string
+        status: enum [PENDING, SENDING, SENT, FAILED]
+        estimated_time: integer (秒)
+      error:
+        code: string
+        message: string
+
+  # 发送消息
+  message_send:
+    endpoint: POST /api/v1/wechat/messages/send
+    request:
+      content_type: application/json
+      body:
+        conversation_id: string (required)
+        wechat_user_id: string (required)
+        message_type: enum [TEXT, IMAGE, LINK, FILE]
+        content: string (required)
+        template_id: string (optional)
+    response:
+      success:
+        message_id: string
+        sent_at: string
+      error:
+        code: string
+        message: string
+
+  # 接收消息 (回调)
+  message_receive:
+    endpoint: POST /api/v1/wechat/webhook/message
+    request:
+      content_type: application/json
+      body:
+        event_type: string
+        wechat_user_id: string
+        content: string
+        received_at: string
+    response:
+      success:
+        acknowledged: boolean
+
+  # 账号健康度检查
+  account_health_check:
+    endpoint: GET /api/v1/wechat/accounts/{accountId}/health
+    response:
+      success:
+        account_id: string
+        status: enum [NORMAL, WARNING, RISKY, BLOCKED]
+        daily_add_count: integer
+        daily_message_count: integer
+        risk_level: enum [LOW, MEDIUM, HIGH]
+        suggestions: array[string]
+
+rate_limit_config:
+  # 防封号策略配置
+  friend_add:
+    daily_limit_per_account: 50
+    hourly_limit_per_account: 10
+    minute_limit_per_account: 2
+    min_interval_seconds: 30
+    max_interval_seconds: 120
+  
+  message_send:
+    daily_limit_per_account: 200
+    min_interval_seconds: 5
+
+account_rotation:
+  enabled: true
+  strategy: ROUND_ROBIN  # ROUND_ROBIN / LEAST_LOADED / WEIGHTED
+  rotation_threshold: 0.8  # 达到 80% 上限后轮换
+
+error_codes:
+  - code: WECHAT_RATE_LIMIT
+    message: "超过企微频率限制"
+    http_status: 429
+  
+  - code: WECHAT_ACCOUNT_RISKY
+    message: "企微账号风险过高"
+    http_status: 403
+  
+  - code: WECHAT_USER_NOT_FOUND
+    message: "用户不存在"
+    http_status: 404
+  
+  - code: WECHAT_FRIEND_ADDED
+    message: "已是好友"
+    http_status: 400
