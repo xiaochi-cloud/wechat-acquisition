@@ -1,5 +1,8 @@
 package com.wechat.acquisition.application.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.wechat.acquisition.domain.acquisition.Campaign;
 import com.wechat.acquisition.domain.acquisition.CampaignStatus;
 import com.wechat.acquisition.domain.acquisition.DataSource;
@@ -19,6 +22,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CampaignApplicationService {
+    private static final Logger log = LoggerFactory.getLogger(CampaignApplicationService.class);
     
     // TODO: 注入 Repository
     // private final CampaignRepository campaignRepository;

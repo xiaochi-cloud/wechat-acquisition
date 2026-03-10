@@ -1,5 +1,8 @@
 package com.wechat.acquisition.domain.conversation.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.wechat.acquisition.domain.conversation.Conversation;
 import com.wechat.acquisition.domain.conversation.ConversationStatus;
 

@@ -1,5 +1,8 @@
 package com.wechat.acquisition.domain.common.event;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import lombok.Getter;
 import java.time.LocalDateTime;
 import java.util.UUID;

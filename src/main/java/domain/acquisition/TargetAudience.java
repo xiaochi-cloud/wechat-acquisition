@@ -1,5 +1,8 @@
 package com.wechat.acquisition.domain.acquisition;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import java.util.List;
 import java.util.Map;
@@ -10,6 +13,7 @@ import java.util.Map;
  * 职责：定义获客活动的目标用户条件，用于过滤和分层
  */
 public class TargetAudience {
+    private static final Logger log = LoggerFactory.getLogger(TargetAudience.class);
     
     private List<String> targetCities;          // 目标城市
     private List<String> targetIndustries;      // 目标行业

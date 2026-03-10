@@ -1,5 +1,8 @@
 package com.wechat.acquisition.infrastructure.scheduler.job;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +25,7 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class DataAnalysisJob {
+    private static final Logger log = LoggerFactory.getLogger(DataAnalysisJob.class);
     
     // TODO: 注入依赖
     // private final StatisticsRepository statisticsRepository;

@@ -1,5 +1,8 @@
 package com.wechat.acquisition.interfaces.web.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.wechat.acquisition.application.service.IntentScoringService;
 import com.wechat.acquisition.domain.scoring.IntentScore;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +22,7 @@ import java.util.Map;
 @RequestMapping("/scoring")
 @RequiredArgsConstructor
 public class ScoringController {
+    private static final Logger log = LoggerFactory.getLogger(ScoringController.class);
     
     private final IntentScoringService scoringService;
     

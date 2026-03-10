@@ -1,5 +1,8 @@
 package com.wechat.acquisition.domain.acquisition;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +13,7 @@ import java.util.List;
  * 职责：管理用户数据来源，支持多渠道导入
  */
 public class DataSource {
+    private static final Logger log = LoggerFactory.getLogger(DataSource.class);
     
     private String id;
     private DataSourceType type;
@@ -100,6 +104,7 @@ public enum DataSourceType {
  * 数据源配置
  */
 public class DataSourceConfig {
+    private static final Logger log = LoggerFactory.getLogger(DataSource.class);
     private String filePath;      // Excel 文件路径
     private String apiUrl;        // API 地址
     private String apiKey;        // API 密钥

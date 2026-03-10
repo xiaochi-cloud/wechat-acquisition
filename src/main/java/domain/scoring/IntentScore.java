@@ -1,5 +1,8 @@
 package com.wechat.acquisition.domain.scoring;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +11,7 @@ import java.util.Map;
  * 意向打分值对象
  */
 public class IntentScore {
+    private static final Logger log = LoggerFactory.getLogger(IntentScore.class);
     
     private Double totalScore;
     private IntentLevel level;

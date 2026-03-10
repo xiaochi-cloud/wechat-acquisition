@@ -1,5 +1,8 @@
 package com.wechat.acquisition.interfaces.web.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.wechat.acquisition.application.service.ContactImportService;
 import com.wechat.acquisition.domain.acquisition.Contact;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +23,7 @@ import java.util.Map;
 @RequestMapping("/contacts")
 @RequiredArgsConstructor
 public class ContactController {
+    private static final Logger log = LoggerFactory.getLogger(ContactController.class);
     
     private final ContactImportService contactImportService;
     

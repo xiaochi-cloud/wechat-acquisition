@@ -1,5 +1,8 @@
 package com.wechat.acquisition.domain.acquisition;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +12,7 @@ import java.util.UUID;
  * 联系人聚合根
  */
 public class Contact {
+    private static final Logger log = LoggerFactory.getLogger(Contact.class);
     private String id;
     private String phoneNumber;
     private String weChatId;

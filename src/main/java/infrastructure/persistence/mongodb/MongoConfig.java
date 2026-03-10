@@ -1,5 +1,8 @@
 package com.wechat.acquisition.infrastructure.persistence.mongodb;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +18,7 @@ import org.springframework.data.mongodb.core.index.IndexResolver;
 @Configuration
 @EnableMongoAuditing
 public class MongoConfig {
+    private static final Logger log = LoggerFactory.getLogger(MongoConfig.class);
     
     @Value("${spring.data.mongodb.uri:mongodb://localhost:27017/wechat_acquisition}")
     private String mongoUri;

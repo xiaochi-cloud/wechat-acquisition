@@ -1,5 +1,8 @@
 package com.wechat.acquisition.domain.acquisition.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.wechat.acquisition.domain.acquisition.Campaign;
 import com.wechat.acquisition.domain.acquisition.CampaignStatus;
 

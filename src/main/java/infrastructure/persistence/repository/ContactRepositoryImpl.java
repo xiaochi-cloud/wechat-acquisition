@@ -1,5 +1,8 @@
 package com.wechat.acquisition.infrastructure.persistence.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.wechat.acquisition.domain.acquisition.Contact;
 import com.wechat.acquisition.domain.acquisition.ContactStatus;
 import com.wechat.acquisition.domain.acquisition.repository.ContactRepository;
@@ -16,6 +19,7 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class ContactRepositoryImpl implements ContactRepository {
+    private static final Logger log = LoggerFactory.getLogger(ContactRepositoryImpl.class);
     
     private final ContactMapper contactMapper;
     

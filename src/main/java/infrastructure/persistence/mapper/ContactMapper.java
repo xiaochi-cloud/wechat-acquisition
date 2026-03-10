@@ -1,5 +1,8 @@
 package com.wechat.acquisition.infrastructure.persistence.mapper;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wechat.acquisition.domain.acquisition.Contact;
 import org.apache.ibatis.annotations.Mapper;

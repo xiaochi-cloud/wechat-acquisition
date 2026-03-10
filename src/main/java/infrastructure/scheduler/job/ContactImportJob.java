@@ -1,5 +1,8 @@
 package com.wechat.acquisition.infrastructure.scheduler.job;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.wechat.acquisition.domain.acquisition.Contact;
 import com.wechat.acquisition.domain.acquisition.ContactStatus;
 import com.wechat.acquisition.domain.acquisition.event.ContactImportedEvent;
@@ -24,6 +27,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class ContactImportJob {
+    private static final Logger log = LoggerFactory.getLogger(ContactImportJob.class);
     
     // TODO: 注入服务
     // private final ContactImportService importService;

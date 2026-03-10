@@ -1,5 +1,8 @@
 package com.wechat.acquisition.domain.acquisition.event;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.wechat.acquisition.domain.common.event.DomainEvent;
 import lombok.Getter;
 
@@ -8,6 +11,7 @@ import lombok.Getter;
  */
 @Getter
 public class ContactImportedEvent extends DomainEvent {
+    private static final Logger log = LoggerFactory.getLogger(ContactImportedEvent.class);
     
     private final String contactId;
     private final String phoneNumber;

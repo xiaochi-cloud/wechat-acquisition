@@ -1,5 +1,8 @@
 package com.wechat.acquisition.infrastructure.scheduler.job;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.wechat.acquisition.domain.acquisition.Contact;
 import com.wechat.acquisition.domain.acquisition.ContactStatus;
 import com.wechat.acquisition.domain.acquisition.RateLimitConfig;
@@ -25,6 +28,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class WeChatFriendAddJob {
+    private static final Logger log = LoggerFactory.getLogger(WeChatFriendAddJob.class);
     
     // TODO: 注入依赖
     // private final ContactRepository contactRepository;

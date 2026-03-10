@@ -1,6 +1,10 @@
 package com.wechat.acquisition.domain.acquisition;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class RateLimitConfig {
+    private static final Logger log = LoggerFactory.getLogger(RateLimitConfig.class);
     private Integer dailyAddLimit;
     private Integer hourlyAddLimit;
     private Integer minuteAddLimit;

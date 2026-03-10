@@ -1,5 +1,8 @@
 package com.wechat.acquisition.infrastructure.scheduler.job;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.wechat.acquisition.domain.conversation.Conversation;
 import com.wechat.acquisition.domain.conversation.ConversationStatus;
 import com.wechat.acquisition.domain.scoring.IntentLevel;
@@ -27,6 +30,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class ConversationFollowUpJob {
+    private static final Logger log = LoggerFactory.getLogger(ConversationFollowUpJob.class);
     
     // TODO: 注入依赖
     // private final ConversationRepository conversationRepository;

@@ -1,5 +1,8 @@
 package com.wechat.acquisition.interfaces.web.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.wechat.acquisition.application.service.CampaignApplicationService;
 import com.wechat.acquisition.domain.acquisition.Campaign;
 import com.wechat.acquisition.domain.acquisition.CampaignStatus;
@@ -18,6 +21,7 @@ import java.util.Map;
 @RequestMapping("/campaigns")
 @RequiredArgsConstructor
 public class CampaignController {
+    private static final Logger log = LoggerFactory.getLogger(CampaignController.class);
     
     private final CampaignApplicationService campaignService;
     

@@ -1,5 +1,8 @@
 package com.wechat.acquisition.domain.acquisition.event;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.wechat.acquisition.domain.common.event.DomainEvent;
 import lombok.Getter;
 
@@ -10,6 +13,7 @@ import java.time.LocalDateTime;
  */
 @Getter
 public class WeChatFriendAddedEvent extends DomainEvent {
+    private static final Logger log = LoggerFactory.getLogger(WeChatFriendAddedEvent.class);
     
     private final String contactId;
     private final String weChatAccountId;

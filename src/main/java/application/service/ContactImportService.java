@@ -1,5 +1,8 @@
 package com.wechat.acquisition.application.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.wechat.acquisition.domain.acquisition.Contact;
 import com.wechat.acquisition.domain.acquisition.ContactStatus;
 import com.wechat.acquisition.domain.acquisition.event.ContactImportedEvent;
@@ -21,6 +24,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ContactImportService {
+    private static final Logger log = LoggerFactory.getLogger(ContactImportService.class);
     
     // TODO: 注入 Repository
     // private final ContactRepository contactRepository;

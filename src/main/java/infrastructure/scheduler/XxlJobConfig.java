@@ -1,5 +1,8 @@
 package com.wechat.acquisition.infrastructure.scheduler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.xxl.job.core.biz.AdminBiz;
 import com.xxl.job.core.client.AdminClient;
 import com.xxl.job.core.handler.annotation.XxlJob;
@@ -16,6 +19,7 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @Configuration
 public class XxlJobConfig {
+    private static final Logger log = LoggerFactory.getLogger(XxlJobConfig.class);
     
     @Value("${xxl.job.admin.addresses:}")
     private String adminAddresses;

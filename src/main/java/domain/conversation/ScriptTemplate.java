@@ -1,5 +1,8 @@
 package com.wechat.acquisition.domain.conversation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,6 +16,7 @@ import java.util.UUID;
  * 职责：管理可配置的对话策略，支持多场景、多版本
  */
 public class ScriptTemplate {
+    private static final Logger log = LoggerFactory.getLogger(ScriptTemplate.class);
     
     private String id;
     private String name;

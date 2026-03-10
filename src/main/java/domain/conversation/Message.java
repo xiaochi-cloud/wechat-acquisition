@@ -1,5 +1,8 @@
 package com.wechat.acquisition.domain.conversation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
@@ -8,6 +11,7 @@ import java.util.UUID;
  * 消息实体
  */
 public class Message {
+    private static final Logger log = LoggerFactory.getLogger(Message.class);
     private String id;
     private String conversationId;
     private MessageDirection direction;

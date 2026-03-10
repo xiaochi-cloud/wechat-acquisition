@@ -1,5 +1,8 @@
 package com.wechat.acquisition.domain.common.tenant;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -9,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class TenantContext {
+    private static final Logger log = LoggerFactory.getLogger(TenantContext.class);
     
     private static final ThreadLocal<String> TENANT_ID_HOLDER = new ThreadLocal<>();
     
