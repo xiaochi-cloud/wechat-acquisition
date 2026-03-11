@@ -104,7 +104,7 @@ public class IntentScoringService {
         
         // 计算平均回复长度
         double avgLength = messages.stream()
-            .filter(m -> m.getDirection().toString().equals("FROM_USER"))
+            .filter(m -> m.getDirection().name().equals("FROM_USER"))
             .mapToDouble(m -> m.getContent() != null ? m.getContent().length() : 0)
             .average()
             .orElse(0);
@@ -126,7 +126,7 @@ public class IntentScoringService {
         List<String> keywords = List.of("价格", "费用", "怎么用", "功能", "效果", "案例", "服务", "产品");
         
         long keywordCount = messages.stream()
-            .filter(m -> m.getDirection().toString().equals("FROM_USER"))
+            .filter(m -> m.getDirection().name().equals("FROM_USER"))
             .map(Message::getContent)
             .filter(content -> content != null)
             .flatMap(content -> keywords.stream().filter(content::contains))
@@ -148,7 +148,7 @@ public class IntentScoringService {
         List<String> urgencyKeywords = List.of("尽快", "马上", "本周", "下周", "急", "快", "最近", "现在");
         
         boolean hasUrgency = messages.stream()
-            .filter(m -> m.getDirection().toString().equals("FROM_USER"))
+            .filter(m -> m.getDirection().name().equals("FROM_USER"))
             .map(Message::getContent)
             .anyMatch(content -> content != null && 
                 urgencyKeywords.stream().anyMatch(content::contains));
