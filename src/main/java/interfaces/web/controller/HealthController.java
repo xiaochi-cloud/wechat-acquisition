@@ -19,6 +19,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping
+@Data
 public class HealthController {
     private static final Logger log = LoggerFactory.getLogger(HealthController.class);
     

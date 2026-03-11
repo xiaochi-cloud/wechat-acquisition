@@ -17,6 +17,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication(scanBasePackages = "com.wechat.acquisition")
 @EnableScheduling
 @EnableAsync
+@Data
 public class Application {
     private static final Logger log = LoggerFactory.getLogger(Application.class);
     

@@ -1,19 +1,33 @@
 package com.wechat.acquisition.infrastructure.llm;
 
 import com.alibaba.dashscope.aigc.generation.Generation;
+import lombok.extern.slf4j.Slf4j;
 import com.alibaba.dashscope.aigc.generation.GenerationParam;
+import lombok.extern.slf4j.Slf4j;
 import com.alibaba.dashscope.aigc.generation.GenerationResult;
+import lombok.extern.slf4j.Slf4j;
 import com.alibaba.dashscope.common.Message;
+import lombok.extern.slf4j.Slf4j;
 import com.alibaba.dashscope.common.Role;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import lombok.extern.slf4j.Slf4j;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Data
+@Builder
+@Slf4j
 public class DashScopeClient {
     
     private static final Logger log = LoggerFactory.getLogger(DashScopeClient.class);

@@ -29,6 +29,7 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@Data
 public class ConversationFollowUpJob {
     private static final Logger log = LoggerFactory.getLogger(ConversationFollowUpJob.class);
     

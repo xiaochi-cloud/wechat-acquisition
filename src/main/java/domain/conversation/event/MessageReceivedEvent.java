@@ -10,6 +10,7 @@ import lombok.Getter;
  * 收到消息事件
  */
 @Getter
+@Data
 public class MessageReceivedEvent extends DomainEvent {
     private static final Logger log = LoggerFactory.getLogger(MessageReceivedEvent.class);
     

@@ -26,6 +26,7 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@Data
 public class ContactImportJob {
     private static final Logger log = LoggerFactory.getLogger(ContactImportJob.class);
     

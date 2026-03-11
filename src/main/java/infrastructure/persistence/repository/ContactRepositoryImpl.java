@@ -18,6 +18,7 @@ import java.util.Optional;
  */
 @Repository
 @RequiredArgsConstructor
+@Data
 public class ContactRepositoryImpl implements ContactRepository {
     private static final Logger log = LoggerFactory.getLogger(ContactRepositoryImpl.class);
     

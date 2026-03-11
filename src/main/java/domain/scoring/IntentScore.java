@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+@Data
 public class IntentScore {
     private Double totalScore;
     private IntentLevel level;

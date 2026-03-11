@@ -1,23 +1,38 @@
 package com.wechat.acquisition.infrastructure.wechat;
 
 import cn.hutool.http.HttpRequest;
+import lombok.extern.slf4j.Slf4j;
 import cn.hutool.json.JSONArray;
+import lombok.extern.slf4j.Slf4j;
 import cn.hutool.json.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import cn.hutool.json.JSONUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.annotation.Transient;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ConcurrentHashMap;
+import lombok.extern.slf4j.Slf4j;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 企业微信 API 客户端
  */
 @Component
+@Data
+@Builder
+@Slf4j
 public class WeChatApiClient {
     
     private static final Logger log = LoggerFactory.getLogger(WeChatApiClient.class);

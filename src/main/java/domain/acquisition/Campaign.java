@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 
+@Data
 public class Campaign {
     private static final Logger log = LoggerFactory.getLogger(Campaign.class);
     private String id;

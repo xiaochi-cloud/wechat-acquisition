@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Slf4j
 @Configuration
+@Data
 public class XxlJobConfig {
     private static final Logger log = LoggerFactory.getLogger(XxlJobConfig.class);
     

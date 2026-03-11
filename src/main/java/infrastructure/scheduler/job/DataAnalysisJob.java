@@ -24,6 +24,7 @@ import java.util.Map;
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@Data
 public class DataAnalysisJob {
     private static final Logger log = LoggerFactory.getLogger(DataAnalysisJob.class);
     

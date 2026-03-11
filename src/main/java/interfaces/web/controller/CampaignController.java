@@ -20,6 +20,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/campaigns")
 @RequiredArgsConstructor
+@Data
 public class CampaignController {
     private static final Logger log = LoggerFactory.getLogger(CampaignController.class);
     

@@ -27,6 +27,7 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@Data
 public class WeChatFriendAddJob {
     private static final Logger log = LoggerFactory.getLogger(WeChatFriendAddJob.class);
     

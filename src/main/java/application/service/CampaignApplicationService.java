@@ -20,6 +20,7 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
+@Data
 public class CampaignApplicationService {
     private static final Logger log = LoggerFactory.getLogger(CampaignApplicationService.class);
     

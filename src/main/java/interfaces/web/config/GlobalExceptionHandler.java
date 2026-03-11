@@ -20,6 +20,7 @@ import java.util.Map;
  */
 @Slf4j
 @RestControllerAdvice
+@Data
 public class GlobalExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
     

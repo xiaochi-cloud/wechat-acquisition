@@ -10,6 +10,7 @@ import java.util.UUID;
 /**
  * 消息实体
  */
+@Data
 public class Message {
     private static final Logger log = LoggerFactory.getLogger(Message.class);
     private String id;

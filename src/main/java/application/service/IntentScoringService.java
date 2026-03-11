@@ -23,6 +23,7 @@ import java.util.Map;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Data
 public class IntentScoringService {
     private static final Logger log = LoggerFactory.getLogger(IntentScoringService.class);
     

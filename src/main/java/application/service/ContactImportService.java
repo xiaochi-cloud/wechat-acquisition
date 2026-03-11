@@ -23,6 +23,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Data
 public class ContactImportService {
     private static final Logger log = LoggerFactory.getLogger(ContactImportService.class);
     

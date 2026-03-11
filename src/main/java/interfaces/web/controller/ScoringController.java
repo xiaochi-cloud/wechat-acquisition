@@ -21,6 +21,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/scoring")
 @RequiredArgsConstructor
+@Data
 public class ScoringController {
     private static final Logger log = LoggerFactory.getLogger(ScoringController.class);
     

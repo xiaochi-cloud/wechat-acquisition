@@ -28,6 +28,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/wechat/callback")
 @RequiredArgsConstructor
+@Data
 public class WeChatCallbackController {
 
     private static final Logger log = LoggerFactory.getLogger(WeChatCallbackController.class);
