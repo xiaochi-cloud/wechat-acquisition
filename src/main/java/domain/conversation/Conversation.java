@@ -83,5 +83,5 @@ public class Conversation {
     }
 }
 
-enum ConversationStatus { ACTIVE, PAUSED, COMPLETED, ABANDONED, TRANSFERRED, BLOCKED }
-enum DialogueMode { PRESET, FREE, HYBRID }
+public enum ConversationStatus { ACTIVE, PAUSED, COMPLETED, ABANDONED, TRANSFERRED, BLOCKED }
+public enum DialogueMode { PRESET, FREE, HYBRID }
