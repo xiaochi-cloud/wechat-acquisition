@@ -72,5 +72,5 @@ public class Message {
     }
 }
 
-enum MessageDirection { FROM_USER, FROM_AI, SYSTEM }
-enum MessageType { TEXT, IMAGE, LINK, FILE, VOICE, SYSTEM }
+public enum MessageDirection { FROM_USER, FROM_AI, SYSTEM }
+public enum MessageType { TEXT, IMAGE, LINK, FILE, VOICE, SYSTEM }
