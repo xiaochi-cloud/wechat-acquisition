@@ -64,7 +64,7 @@ public class TargetAudience {
 /**
  * 年龄范围
  */
-static class AgeRange {
+public static class AgeRange {
     private Integer minAge;
     private Integer maxAge;
     
