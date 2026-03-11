@@ -64,14 +64,3 @@ public class TargetAudience {
 /**
  * 年龄范围
  */
-public static class AgeRange {
-    private Integer minAge;
-    private Integer maxAge;
-    
-    public boolean contains(Integer age) {
-        if (age == null) return true;
-        if (minAge != null && age < minAge) return false;
-        if (maxAge != null && age > maxAge) return false;
-        return true;
-    }
-}
