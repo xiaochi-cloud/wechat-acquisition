@@ -63,7 +63,7 @@ public class Contact {
     public boolean isWeChatAdded() { return this.weChatId != null && !this.weChatId.isEmpty(); }
 }
 
-public enum ContactStatus {
+enum ContactStatus {
     NEW, IMPORTED, ADDING, ADDED, CONVERSING, SCORED, CONVERTED, INVALID, BLOCKED
 }
 
