@@ -25,7 +25,7 @@ public class Campaign {
     public LocalDateTime getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
     
-    public static Campaign create(String name) {
+    public static Campaign create(String name, DataSource dataSource, TargetAudience targetAudience) {
         Campaign c = new Campaign();
         c.setId(java.util.UUID.randomUUID().toString());
         c.setName(name);
