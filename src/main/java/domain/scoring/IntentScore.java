@@ -11,7 +11,6 @@ import java.util.Map;
  * 意向打分值对象
  */
 public class IntentScore {
-public class IntentScore {
     private static final Logger log = LoggerFactory.getLogger(IntentScore.class);
     
     private Double totalScore;
