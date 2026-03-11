@@ -7,7 +7,6 @@ import com.wechat.acquisition.domain.acquisition.Campaign;
 import com.wechat.acquisition.domain.acquisition.CampaignStatus;
 import com.wechat.acquisition.domain.acquisition.DataSource;
 import com.wechat.acquisition.domain.acquisition.TargetAudience;
-import com.wechat.acquisition.domain.acquisition.event.CampaignStartedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,7 +45,6 @@ public class CampaignApplicationService {
         // Campaign campaign = campaignRepository.findById(campaignId);
         // campaign.start();
         // campaignRepository.save(campaign);
-        // eventPublisher.publish(new CampaignStartedEvent(campaignId));
     }
     
     /**

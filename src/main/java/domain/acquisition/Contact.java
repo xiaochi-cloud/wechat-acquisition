@@ -63,11 +63,11 @@ public class Contact {
     public boolean isWeChatAdded() { return this.weChatId != null && !this.weChatId.isEmpty(); }
 }
 
-public enum ContactStatus {
+enum ContactStatus {
     NEW, IMPORTED, ADDING, ADDED, CONVERSING, SCORED, CONVERTED, INVALID, BLOCKED
 }
 
-public class ProfileData {
+class ProfileData {
     private String gender;
     private Integer age;
     private String city;
