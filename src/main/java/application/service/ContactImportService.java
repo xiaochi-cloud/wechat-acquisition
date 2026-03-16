@@ -19,7 +19,6 @@ import java.util.List;
  * 职责：处理 Excel/API/Webhook 等多渠道联系人导入
  */
 @Service
-@RequiredArgsConstructor
 public class ContactImportService {
     private static final Logger log = LoggerFactory.getLogger(ContactImportService.class);
     

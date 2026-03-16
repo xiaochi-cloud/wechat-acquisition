@@ -25,7 +25,6 @@ import java.util.List;
  * - 更新意向打分
  */
 @Component
-@RequiredArgsConstructor
 public class ConversationFollowUpJob {
     private static final Logger log = LoggerFactory.getLogger(ConversationFollowUpJob.class);
     

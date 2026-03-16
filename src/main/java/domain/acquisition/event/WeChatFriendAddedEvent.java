@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 /**
  * 企微好友添加成功事件
  */
-@Getter
 public class WeChatFriendAddedEvent extends DomainEvent {
     private static final Logger log = LoggerFactory.getLogger(WeChatFriendAddedEvent.class);
     

@@ -9,7 +9,6 @@ import java.util.UUID;
 /**
  * 领域事件基类
  */
-@Getter
 public abstract class DomainEvent {
     
     private final String eventId;

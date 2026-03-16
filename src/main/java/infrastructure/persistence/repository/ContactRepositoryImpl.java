@@ -16,7 +16,6 @@ import java.util.Optional;
  * 联系人 Repository 实现
  */
 @Repository
-@RequiredArgsConstructor
 public class ContactRepositoryImpl implements ContactRepository {
     private static final Logger log = LoggerFactory.getLogger(ContactRepositoryImpl.class);
     

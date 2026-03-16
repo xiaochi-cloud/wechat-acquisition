@@ -18,7 +18,6 @@ import java.util.List;
  * 职责：编排获客活动相关的业务逻辑
  */
 @Service
-@RequiredArgsConstructor
 public class CampaignApplicationService {
     private static final Logger log = LoggerFactory.getLogger(CampaignApplicationService.class);
     

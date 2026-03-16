@@ -8,7 +8,6 @@ import com.wechat.acquisition.domain.common.event.DomainEvent;
 /**
  * 联系人导入完成事件
  */
-@Getter
 public class ContactImportedEvent extends DomainEvent {
     private static final Logger log = LoggerFactory.getLogger(ContactImportedEvent.class);
     

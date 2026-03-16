@@ -22,7 +22,6 @@ import java.util.List;
  * - 批量处理，控制频率
  */
 @Component
-@RequiredArgsConstructor
 public class ContactImportJob {
     private static final Logger log = LoggerFactory.getLogger(ContactImportJob.class);
     

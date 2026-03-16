@@ -18,7 +18,6 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/contacts")
-@RequiredArgsConstructor
 public class ContactController {
     private static final Logger log = LoggerFactory.getLogger(ContactController.class);
     

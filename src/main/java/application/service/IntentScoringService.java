@@ -19,7 +19,6 @@ import java.util.Map;
  * 职责：规则引擎 + 大模型混合打分
  */
 @Service
-@RequiredArgsConstructor
 public class IntentScoringService {
     private static final Logger log = LoggerFactory.getLogger(IntentScoringService.class);
     

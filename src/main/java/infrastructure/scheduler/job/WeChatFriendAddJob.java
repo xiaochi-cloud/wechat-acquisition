@@ -23,7 +23,6 @@ import java.util.List;
  * - 多账号轮换
  */
 @Component
-@RequiredArgsConstructor
 public class WeChatFriendAddJob {
     private static final Logger log = LoggerFactory.getLogger(WeChatFriendAddJob.class);
     

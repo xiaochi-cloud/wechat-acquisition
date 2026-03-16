@@ -20,7 +20,6 @@ import java.util.Map;
  * - 更新统计指标
  */
 @Component
-@RequiredArgsConstructor
 public class DataAnalysisJob {
     private static final Logger log = LoggerFactory.getLogger(DataAnalysisJob.class);
     

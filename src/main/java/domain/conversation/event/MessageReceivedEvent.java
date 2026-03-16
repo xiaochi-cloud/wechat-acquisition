@@ -8,7 +8,6 @@ import com.wechat.acquisition.domain.common.event.DomainEvent;
 /**
  * 收到消息事件
  */
-@Getter
 public class MessageReceivedEvent extends DomainEvent {
     private static final Logger log = LoggerFactory.getLogger(MessageReceivedEvent.class);
     
