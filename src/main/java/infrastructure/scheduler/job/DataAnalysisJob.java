@@ -5,8 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.annotation.XxlJob;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -21,10 +19,8 @@ import java.util.Map;
  * - 生成日报数据
  * - 更新统计指标
  */
-@Slf4j
 @Component
 @RequiredArgsConstructor
-@Data
 public class DataAnalysisJob {
     private static final Logger log = LoggerFactory.getLogger(DataAnalysisJob.class);
     

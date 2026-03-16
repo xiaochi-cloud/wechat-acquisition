@@ -8,8 +8,6 @@ import com.wechat.acquisition.domain.acquisition.ContactStatus;
 import com.wechat.acquisition.domain.acquisition.event.ContactImportedEvent;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.annotation.XxlJob;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -23,10 +21,8 @@ import java.util.List;
  * - 从数据源同步新联系人
  * - 批量处理，控制频率
  */
-@Slf4j
 @Component
 @RequiredArgsConstructor
-@Data
 public class ContactImportJob {
     private static final Logger log = LoggerFactory.getLogger(ContactImportJob.class);
     

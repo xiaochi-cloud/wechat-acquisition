@@ -9,8 +9,6 @@ import com.wechat.acquisition.domain.scoring.IntentLevel;
 import com.wechat.acquisition.domain.scoring.IntentScore;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.annotation.XxlJob;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -26,10 +24,8 @@ import java.util.List;
  * - 自动发送跟进消息
  * - 更新意向打分
  */
-@Slf4j
 @Component
 @RequiredArgsConstructor
-@Data
 public class ConversationFollowUpJob {
     private static final Logger log = LoggerFactory.getLogger(ConversationFollowUpJob.class);
     

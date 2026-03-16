@@ -12,7 +12,6 @@ import java.util.Map;
  * 
  * 职责：定义获客活动的目标用户条件，用于过滤和分层
  */
-@Data
 public class TargetAudience {
     private static final Logger log = LoggerFactory.getLogger(TargetAudience.class);
     

@@ -1,6 +1,5 @@
 package com.wechat.acquisition.domain.acquisition;
 import java.util.Map;
-@Data
 public class ProfileData {
     private String gender; private Integer age; private String city;
     private String industry; private String company; private String position;

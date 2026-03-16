@@ -17,7 +17,6 @@ import org.springframework.data.mongodb.core.index.IndexResolver;
  */
 @Configuration
 @EnableMongoAuditing
-@Data
 public class MongoConfig {
     private static final Logger log = LoggerFactory.getLogger(MongoConfig.class);
     

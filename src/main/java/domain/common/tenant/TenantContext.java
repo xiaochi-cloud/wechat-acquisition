@@ -3,15 +3,12 @@ package com.wechat.acquisition.domain.common.tenant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * 多租户上下文
  * 
  * 职责：管理当前请求的租户信息
  */
-@Slf4j
-@Data
 public class TenantContext {
     private static final Logger log = LoggerFactory.getLogger(TenantContext.class);
     

@@ -9,8 +9,6 @@ import com.wechat.acquisition.domain.acquisition.RateLimitConfig;
 import com.wechat.acquisition.domain.acquisition.event.WeChatFriendAddedEvent;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.annotation.XxlJob;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -24,10 +22,8 @@ import java.util.List;
  * - 根据频率限制控制添加速度
  * - 多账号轮换
  */
-@Slf4j
 @Component
 @RequiredArgsConstructor
-@Data
 public class WeChatFriendAddJob {
     private static final Logger log = LoggerFactory.getLogger(WeChatFriendAddJob.class);
     

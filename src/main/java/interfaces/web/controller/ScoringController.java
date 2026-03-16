@@ -5,8 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import com.wechat.acquisition.application.service.IntentScoringService;
 import com.wechat.acquisition.domain.scoring.IntentScore;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +15,9 @@ import java.util.Map;
 /**
  * 意向打分 API
  */
-@Slf4j
 @RestController
 @RequestMapping("/scoring")
 @RequiredArgsConstructor
-@Data
 public class ScoringController {
     private static final Logger log = LoggerFactory.getLogger(ScoringController.class);
     

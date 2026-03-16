@@ -7,8 +7,6 @@ import com.wechat.acquisition.domain.conversation.Conversation;
 import com.wechat.acquisition.domain.conversation.Message;
 import com.wechat.acquisition.domain.scoring.IntentLevel;
 import com.wechat.acquisition.domain.scoring.IntentScore;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -20,10 +18,8 @@ import java.util.Map;
  * 
  * 职责：规则引擎 + 大模型混合打分
  */
-@Slf4j
 @Service
 @RequiredArgsConstructor
-@Data
 public class IntentScoringService {
     private static final Logger log = LoggerFactory.getLogger(IntentScoringService.class);
     

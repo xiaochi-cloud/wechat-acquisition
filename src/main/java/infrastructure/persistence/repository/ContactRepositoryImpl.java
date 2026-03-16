@@ -7,7 +7,6 @@ import com.wechat.acquisition.domain.acquisition.Contact;
 import com.wechat.acquisition.domain.acquisition.ContactStatus;
 import com.wechat.acquisition.domain.acquisition.repository.ContactRepository;
 import com.wechat.acquisition.infrastructure.persistence.mapper.ContactMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,7 +17,6 @@ import java.util.Optional;
  */
 @Repository
 @RequiredArgsConstructor
-@Data
 public class ContactRepositoryImpl implements ContactRepository {
     private static final Logger log = LoggerFactory.getLogger(ContactRepositoryImpl.class);
     

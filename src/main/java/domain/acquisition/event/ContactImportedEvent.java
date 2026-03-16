@@ -4,13 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.wechat.acquisition.domain.common.event.DomainEvent;
-import lombok.Getter;
 
 /**
  * 联系人导入完成事件
  */
 @Getter
-@Data
 public class ContactImportedEvent extends DomainEvent {
     private static final Logger log = LoggerFactory.getLogger(ContactImportedEvent.class);
     

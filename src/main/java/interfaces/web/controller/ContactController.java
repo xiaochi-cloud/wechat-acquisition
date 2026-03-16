@@ -5,8 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import com.wechat.acquisition.application.service.ContactImportService;
 import com.wechat.acquisition.domain.acquisition.Contact;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,11 +16,9 @@ import java.util.Map;
 /**
  * 联系人管理 API
  */
-@Slf4j
 @RestController
 @RequestMapping("/contacts")
 @RequiredArgsConstructor
-@Data
 public class ContactController {
     private static final Logger log = LoggerFactory.getLogger(ContactController.class);
     

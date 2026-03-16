@@ -11,7 +11,6 @@ import java.util.UUID;
 /**
  * 联系人聚合根
  */
-@Data
 public class Contact {
     private static final Logger log = LoggerFactory.getLogger(Contact.class);
     private String id;

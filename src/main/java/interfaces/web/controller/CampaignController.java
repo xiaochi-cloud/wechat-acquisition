@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import com.wechat.acquisition.application.service.CampaignApplicationService;
 import com.wechat.acquisition.domain.acquisition.Campaign;
 import com.wechat.acquisition.domain.acquisition.CampaignStatus;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +19,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/campaigns")
 @RequiredArgsConstructor
-@Data
 public class CampaignController {
     private static final Logger log = LoggerFactory.getLogger(CampaignController.class);
     

@@ -7,7 +7,6 @@ import com.wechat.acquisition.domain.acquisition.Campaign;
 import com.wechat.acquisition.domain.acquisition.CampaignStatus;
 import com.wechat.acquisition.domain.acquisition.DataSource;
 import com.wechat.acquisition.domain.acquisition.TargetAudience;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +19,6 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
-@Data
 public class CampaignApplicationService {
     private static final Logger log = LoggerFactory.getLogger(CampaignApplicationService.class);
     

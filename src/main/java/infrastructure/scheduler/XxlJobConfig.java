@@ -8,7 +8,6 @@ import com.xxl.job.core.client.AdminClient;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import com.xxl.job.core.log.XxlJobLogger;
 import com.xxl.job.core.server.XxlJobServer;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,9 +15,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * XXL-Job 配置
  */
-@Slf4j
 @Configuration
-@Data
 public class XxlJobConfig {
     private static final Logger log = LoggerFactory.getLogger(XxlJobConfig.class);
     

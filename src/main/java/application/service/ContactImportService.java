@@ -6,8 +6,6 @@ import org.slf4j.LoggerFactory;
 import com.wechat.acquisition.domain.acquisition.Contact;
 import com.wechat.acquisition.domain.acquisition.ContactStatus;
 import com.wechat.acquisition.domain.acquisition.event.ContactImportedEvent;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,10 +18,8 @@ import java.util.List;
  * 
  * 职责：处理 Excel/API/Webhook 等多渠道联系人导入
  */
-@Slf4j
 @Service
 @RequiredArgsConstructor
-@Data
 public class ContactImportService {
     private static final Logger log = LoggerFactory.getLogger(ContactImportService.class);
     

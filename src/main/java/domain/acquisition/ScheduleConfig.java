@@ -3,7 +3,6 @@ package com.wechat.acquisition.domain.acquisition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Data
 public class ScheduleConfig {
     private static final Logger log = LoggerFactory.getLogger(ScheduleConfig.class);
     private ScheduleType type;

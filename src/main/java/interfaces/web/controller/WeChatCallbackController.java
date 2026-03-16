@@ -6,8 +6,6 @@ import org.slf4j.LoggerFactory;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.json.JSONUtil;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +22,9 @@ import java.util.Map;
  * - 消息接收
  * - 用户标签变更
  */
-@Slf4j
 @RestController
 @RequestMapping("/wechat/callback")
 @RequiredArgsConstructor
-@Data
 public class WeChatCallbackController {
 
     private static final Logger log = LoggerFactory.getLogger(WeChatCallbackController.class);
