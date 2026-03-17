@@ -26,6 +26,8 @@ import java.util.Map;
 @RequestMapping("/wechat/callback")
 public class WeChatCallbackController {
 
+    public WeChatCallbackController() {}
+
     private static final Logger log = LoggerFactory.getLogger(WeChatCallbackController.class);
     
     @Value("${wechat.token:}")

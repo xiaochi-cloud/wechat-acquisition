@@ -18,6 +18,8 @@ import java.util.Map;
 @RestController
 @RequestMapping
 public class HealthController {
+
+    public HealthController() {}
     private static final Logger log = LoggerFactory.getLogger(HealthController.class);
     
     /**

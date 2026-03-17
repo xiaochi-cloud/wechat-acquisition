@@ -19,6 +19,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/contacts")
 public class ContactController {
+
+    public ContactController() {}
     private static final Logger log = LoggerFactory.getLogger(ContactController.class);
     
     private final ContactImportService contactImportService;

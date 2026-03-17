@@ -18,6 +18,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/scoring")
 public class ScoringController {
+
+    public ScoringController() {}
     private static final Logger log = LoggerFactory.getLogger(ScoringController.class);
     
     private final IntentScoringService scoringService;
