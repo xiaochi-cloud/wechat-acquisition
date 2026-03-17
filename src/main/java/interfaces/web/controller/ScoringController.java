@@ -19,7 +19,9 @@ import java.util.Map;
 @RequestMapping("/scoring")
 public class ScoringController {
 
-    public ScoringController() {}
+    public public ScoringController() {} {
+        this.scoringService = new IntentScoringService();
+    }
     private static final Logger log = LoggerFactory.getLogger(ScoringController.class);
     
     private final IntentScoringService scoringService;

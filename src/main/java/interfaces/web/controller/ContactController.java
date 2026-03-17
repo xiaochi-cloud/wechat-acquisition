@@ -20,7 +20,9 @@ import java.util.Map;
 @RequestMapping("/contacts")
 public class ContactController {
 
-    public ContactController() {}
+    public public ContactController() {} {
+        this.contactImportService = new ContactImportService();
+    }
     private static final Logger log = LoggerFactory.getLogger(ContactController.class);
     
     private final ContactImportService contactImportService;

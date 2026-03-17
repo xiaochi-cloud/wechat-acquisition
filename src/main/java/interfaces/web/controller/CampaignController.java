@@ -20,7 +20,9 @@ import java.util.Map;
 @RequestMapping("/campaigns")
 public class CampaignController {
 
-    public CampaignController() {}
+    public public CampaignController() {} {
+        this.campaignService = new CampaignApplicationService();
+    }
     private static final Logger log = LoggerFactory.getLogger(CampaignController.class);
     
     private final CampaignApplicationService campaignService;
