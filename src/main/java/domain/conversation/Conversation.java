@@ -14,7 +14,7 @@ public class Conversation {
     private DialogueMode mode;
     private String scenario;
     private List<Message> messages;
-    private domain.scoring.IntentScore intentScore;
+    private com.wechat.acquisition.domain.scoring.IntentScore intentScore;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime lastMessageAt;
@@ -36,8 +36,8 @@ public class Conversation {
     public void setScenario(String scenario) { this.scenario = scenario; }
     public List<Message> getMessages() { return messages; }
     public void setMessages(List<Message> messages) { this.messages = messages; }
-    public domain.scoring.IntentScore getIntentScore() { return intentScore; }
-    public void setIntentScore(domain.scoring.IntentScore intentScore) { this.intentScore = intentScore; }
+    public com.wechat.acquisition.domain.scoring.IntentScore getIntentScore() { return intentScore; }
+    public void setIntentScore(com.wechat.acquisition.domain.scoring.IntentScore intentScore) { this.intentScore = intentScore; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
     public LocalDateTime getUpdatedAt() { return updatedAt; }
@@ -51,7 +51,7 @@ public class Conversation {
         this.updatedAt = LocalDateTime.now();
     }
     
-    public void updateIntentScore(domain.scoring.IntentScore score) {
+    public void updateIntentScore(com.wechat.acquisition.domain.scoring.IntentScore score) {
         this.intentScore = score;
         this.updatedAt = LocalDateTime.now();
     }
