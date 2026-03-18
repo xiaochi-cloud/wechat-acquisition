@@ -7,49 +7,587 @@
     <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background: #f0f2f5; }
-        .header { background: #409EFF; color: white; padding: 20px; text-align: center; }
-        .container { max-width: 1200px; margin: 20px auto; padding: 20px; }
+        body { font-family: Arial, sans-serif; background: #f5f7fa; }
+        
+        /* 登录页面 */
+        .login-container { 
+            height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .login-box {
+            width: 420px;
+            padding: 40px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.1);
+        }
+        .login-header { text-align: center; margin-bottom: 30px; }
+        .login-header h1 { margin: 15px 0 10px; font-size: 24px; color: #333; }
+        .login-header p { color: #999; font-size: 14px; }
+        .login-btn { width: 100%; }
+        
+        /* 主布局 */
+        .main-container { display: flex; height: 100vh; }
+        .sidebar { 
+            width: 220px; 
+            background: #304156; 
+            color: #fff;
+        }
+        .logo {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .content { flex: 1; background: #f0f2f5; overflow-y: auto; }
+        .header {
+            background: #fff;
+            padding: 0 20px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e6e6e6;
+        }
+        .main-content { padding: 20px; }
+        
+        /* 统计卡片 */
         .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 20px; }
-        .stat-card { background: white; padding: 20px; border-radius: 8px; text-align: center; }
-        .stat-value { font-size: 32px; font-weight: bold; color: #409EFF; }
-        .stat-label { color: #999; margin-top: 10px; }
-        .content { background: white; padding: 20px; border-radius: 8px; }
+        .stat-card { 
+            background: #fff; 
+            padding: 20px; 
+            border-radius: 8px; 
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .stat-icon .el-icon { font-size: 30px; color: #fff; }
+        .stat-value { font-size: 24px; font-weight: bold; color: #333; }
+        .stat-label { color: #999; margin-top: 5px; }
+        
+        /* 通用 */
+        .card { background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .toolbar { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🚀 企业微信获客平台</h1>
-        <p>智能获客 · 高效转化</p>
-    </div>
-    <div class="container">
-        <div class="stats">
-            <div class="stat-card">
-                <div class="stat-value">10,245</div>
-                <div class="stat-label">总联系人</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">3,856</div>
-                <div class="stat-label">已添加好友</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">2,104</div>
-                <div class="stat-label">会话数</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">428</div>
-                <div class="stat-label">高意向用户</div>
+    <div id="app">
+        <!-- 登录页面 -->
+        <div v-if="!isLoggedIn" class="login-container">
+            <div class="login-box">
+                <div class="login-header">
+                    <el-icon :size="48" color="#409EFF"><ChatDotRound /></el-icon>
+                    <h1>企业微信获客平台</h1>
+                    <p>智能获客 · 高效转化</p>
+                </div>
+                <el-form :model="loginForm" :rules="rules" ref="loginFormRef">
+                    <el-form-item prop="username">
+                        <el-input v-model="loginForm.username" placeholder="用户名" prefix-icon="User" size="large" />
+                    </el-form-item>
+                    <el-form-item prop="password">
+                        <el-input v-model="loginForm.password" type="password" placeholder="密码" prefix-icon="Lock" size="large" show-password />
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" size="large" class="login-btn" :loading="loading" @click="handleLogin">登录</el-button>
+                    </el-form-item>
+                </el-form>
             </div>
         </div>
-        <div class="content">
-            <h2>系统状态</h2>
-            <p>✅ 应用服务运行中</p>
-            <p>✅ 数据库连接正常</p>
-            <p>✅ API 端点：25 个</p>
-            <p>🔄 前端版本：1.0.0 (简化版)</p>
+        
+        <!-- 主界面 -->
+        <div v-else class="main-container">
+            <!-- 侧边栏 -->
+            <div class="sidebar">
+                <div class="logo">
+                    <el-icon><ChatDotRound /></el-icon>
+                    <span>获客平台</span>
+                </div>
+                <el-menu :default-active="activeMenu" background-color="#304156" text-color="#bfcbd9" active-text-color="#409EFF" router>
+                    <el-menu-item index="dashboard"><el-icon><DataAnalysis /></el-icon><span>仪表盘</span></el-menu-item>
+                    <el-menu-item index="contacts"><el-icon><User /></el-icon><span>名单管理</span></el-menu-item>
+                    <el-menu-item index="import"><el-icon><Upload /></el-icon><span>导入名单</span></el-menu-item>
+                    <el-menu-item index="wechat"><el-icon><ChatLineRound /></el-icon><span>企微联动</span></el-menu-item>
+                    <el-menu-item index="conversations"><el-icon><ChatDotSquare /></el-icon><span>会话管理</span></el-menu-item>
+                    <el-menu-item index="scoring"><el-icon><TrendCharts /></el-icon><span>意向打分</span></el-menu-item>
+                    <el-menu-item index="settings"><el-icon><Setting /></el-icon><span>系统设置</span></el-menu-item>
+                </el-menu>
+            </div>
+            
+            <!-- 主内容区 -->
+            <div class="content">
+                <!-- 顶部导航 -->
+                <div class="header">
+                    <h2>{{ pageTitle }}</h2>
+                    <el-dropdown>
+                        <span class="user-info"><el-avatar :size="32" icon="User" /> <span style="margin-left: 10px;">{{ username }}</span></span>
+                        <template #dropdown>
+                            <el-dropdown-menu>
+                                <el-dropdown-item @click="handleLogout">退出登录</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </template>
+                    </el-dropdown>
+                </div>
+                
+                <!-- 页面内容 -->
+                <div class="main-content">
+                    <!-- 仪表盘 -->
+                    <div v-if="activeMenu === 'dashboard'">
+                        <div class="stats">
+                            <div class="stat-card">
+                                <div class="stat-icon" style="background: #409EFF"><el-icon><User /></el-icon></div>
+                                <div><div class="stat-value">{{ stats.contacts }}</div><div class="stat-label">总联系人</div></div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon" style="background: #67C23A"><el-icon><CircleCheck /></el-icon></div>
+                                <div><div class="stat-value">{{ stats.added }}</div><div class="stat-label">已添加好友</div></div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon" style="background: #E6A23C"><el-icon><ChatLineRound /></el-icon></div>
+                                <div><div class="stat-value">{{ stats.conversations }}</div><div class="stat-label">会话数</div></div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon" style="background: #F56C6C"><el-icon><Star /></el-icon></div>
+                                <div><div class="stat-value">{{ stats.highIntent }}</div><div class="stat-label">高意向用户</div></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3>最近活动</h3>
+                            <el-table :data="recentCampaigns" stripe style="margin-top: 15px">
+                                <el-table-column prop="name" label="活动名称" />
+                                <el-table-column prop="status" label="状态" width="100">
+                                    <template #default="{ row }">
+                                        <el-tag :type="row.status === 'RUNNING' ? 'success' : 'info'">{{ row.statusText }}</el-tag>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column prop="contactCount" label="联系人" width="100" />
+                                <el-table-column prop="addedCount" label="已添加" width="100" />
+                                <el-table-column prop="createdAt" label="创建时间" width="180" />
+                            </el-table>
+                        </div>
+                    </div>
+                    
+                    <!-- 名单管理 -->
+                    <div v-if="activeMenu === 'contacts'" class="card">
+                        <div class="toolbar">
+                            <div>
+                                <el-input v-model="searchKeyword" placeholder="搜索手机号/姓名" style="width: 250px" clearable />
+                                <el-select v-model="filterStatus" placeholder="状态筛选" clearable style="width: 150px; margin-left: 10px">
+                                    <el-option label="新增" value="NEW" />
+                                    <el-option label="已导入" value="IMPORTED" />
+                                    <el-option label="添加中" value="ADDING" />
+                                    <el-option label="已添加" value="ADDED" />
+                                    <el-option label="对话中" value="CONVERSING" />
+                                </el-select>
+                                <el-button type="primary" @click="loadContacts" style="margin-left: 10px">搜索</el-button>
+                            </div>
+                            <el-button type="danger" @click="batchDelete" :disabled="selectedContacts.length === 0">批量删除</el-button>
+                        </div>
+                        <el-table :data="contacts" stripe v-loading="loading" @selection-change="handleSelectionChange">
+                            <el-table-column type="selection" width="55" />
+                            <el-table-column prop="phoneNumber" label="手机号" width="150" />
+                            <el-table-column prop="name" label="姓名" width="120" />
+                            <el-table-column prop="status" label="状态" width="100">
+                                <template #default="{ row }">
+                                    <el-tag :type="getStatusType(row.status)">{{ getStatusText(row.status) }}</el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="wechatId" label="企微 ID" width="150" />
+                            <el-table-column label="标签" width="200">
+                                <template #default="{ row }">
+                                    <el-tag v-for="(value, key) in row.tags" :key="key" size="small" style="margin-right: 5px">{{ key }}:{{ value }}</el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="lastContactAt" label="最后联系" width="180" />
+                            <el-table-column label="操作" width="200">
+                                <template #default="{ row }">
+                                    <el-button size="small" @click="viewContact(row)">详情</el-button>
+                                    <el-button size="small" type="primary" @click="editTags(row)">打标签</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        <el-pagination v-model:current-page="currentPage" :total="total" :page-size="pageSize" layout="total,prev,pager,next" style="margin-top: 20px; justify-content: flex-end" />
+                    </div>
+                    
+                    <!-- 导入名单 -->
+                    <div v-if="activeMenu === 'import'" class="card">
+                        <h3>Excel 导入</h3>
+                        <el-upload ref="uploadRef" :auto-upload="false" :limit="1" accept=".xlsx,.xls" drag style="margin: 20px 0">
+                            <el-icon class="el-icon--upload"><UploadFilled /></el-icon>
+                            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                            <template #tip>
+                                <div class="el-upload__tip">只能上传 xlsx/xls 文件，不超过 10MB</div>
+                            </template>
+                        </el-upload>
+                        <el-form :model="importForm" label-width="120px">
+                            <el-form-item label="选择活动">
+                                <el-select v-model="importForm.campaignId" placeholder="请选择活动" style="width: 300px">
+                                    <el-option v-for="c in campaigns" :key="c.id" :label="c.name" :value="c.id" />
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" @click="handleImport" :loading="importing">开始导入</el-button>
+                            </el-form-item>
+                        </el-form>
+                    </div>
+                    
+                    <!-- 企微联动 -->
+                    <div v-if="activeMenu === 'wechat'" class="card">
+                        <h3>企微自动加好友</h3>
+                        <div class="toolbar">
+                            <div>
+                                <el-button type="primary" @click="startAutoAdd" :loading="autoAdding">开始自动添加</el-button>
+                                <el-button type="warning" @click="stopAutoAdd" :disabled="!autoAdding">停止</el-button>
+                            </div>
+                            <div>
+                                今日已添加：<strong>{{ todayAdded }}</strong> / {{ dailyLimit }}
+                            </div>
+                        </div>
+                        <el-table :data="wechatAccounts" stripe>
+                            <el-table-column prop="name" label="账号名称" />
+                            <el-table-column prop="userId" label="企微用户 ID" />
+                            <el-table-column prop="status" label="状态" width="100">
+                                <template #default="{ row }">
+                                    <el-tag :type="row.status === 'ACTIVE' ? 'success' : 'info'">{{ row.statusText }}</el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="dailyAddCount" label="今日添加" width="100" />
+                            <el-table-column prop="riskLevel" label="风险等级" width="100">
+                                <template #default="{ row }">
+                                    <el-tag :type="getRiskType(row.riskLevel)">{{ row.riskLevel }}</el-tag>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </div>
+                    
+                    <!-- 会话管理 -->
+                    <div v-if="activeMenu === 'conversations'" class="card">
+                        <h3>会话列表</h3>
+                        <el-table :data="conversations" stripe>
+                            <el-table-column prop="contactName" label="联系人" width="120" />
+                            <el-table-column prop="turnCount" label="对话轮数" width="100" />
+                            <el-table-column prop="intentScore" label="意向分数" width="100">
+                                <template #default="{ row }">
+                                    <el-tag :type="getScoreType(row.intentScore)">{{ row.intentScore }}</el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="status" label="状态" width="100" />
+                            <el-table-column prop="lastMessageAt" label="最后消息" width="180" />
+                            <el-table-column label="操作">
+                                <template #default="{ row }">
+                                    <el-button size="small" @click="viewConversation(row)">查看对话</el-button>
+                                    <el-button size="small" type="primary" v-if="row.intentScore >= 80">转人工</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </div>
+                    
+                    <!-- 意向打分 -->
+                    <div v-if="activeMenu === 'scoring'" class="card">
+                        <h3>意向打分规则</h3>
+                        <el-descriptions :column="2" border style="margin-bottom: 20px">
+                            <el-descriptions-item label="响应度">30% - 回复速度、回复长度、主动性</el-descriptions-item>
+                            <el-descriptions-item label="兴趣度">35% - 产品关键词、价格询问、功能细节</el-descriptions-item>
+                            <el-descriptions-item label="紧迫度">20% - 时间表达、决策周期</el-descriptions-item>
+                            <el-descriptions-item label="匹配度">15% - 用户画像匹配程度</el-descriptions-item>
+                        </el-descriptions>
+                        <h3>意向等级</h3>
+                        <el-table :data="intentLevels" stripe>
+                            <el-table-column prop="level" label="等级" width="100" />
+                            <el-table-column prop="name" label="名称" width="120" />
+                            <el-table-column prop="range" label="分数范围" width="150" />
+                            <el-table-column prop="action" label="跟进策略" />
+                        </el-table>
+                    </div>
+                    
+                    <!-- 系统设置 -->
+                    <div v-if="activeMenu === 'settings'" class="card">
+                        <h3>企微配置</h3>
+                        <el-form :model="settings" label-width="150px">
+                            <el-form-item label="企业 ID">
+                                <el-input v-model="settings.corpId" />
+                            </el-form-item>
+                            <el-form-item label="应用 ID">
+                                <el-input v-model="settings.agentId" />
+                            </el-form-item>
+                            <el-form-item label="Secret">
+                                <el-input v-model="settings.secret" type="password" />
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" @click="saveSettings">保存配置</el-button>
+                            </el-form-item>
+                        </el-form>
+                        
+                        <h3 style="margin-top: 30px">大模型配置</h3>
+                        <el-form :model="settings" label-width="150px">
+                            <el-form-item label="服务商">
+                                <el-select v-model="settings.llmProvider">
+                                    <el-option label="通义千问" value="dashscope" />
+                                    <el-option label="DeepSeek" value="deepseek" />
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item label="API Key">
+                                <el-input v-model="settings.llmKey" type="password" />
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" @click="saveSettings">保存配置</el-button>
+                            </el-form-item>
+                        </el-form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    
     <script src="https://unpkg.com/vue@3"></script>
     <script src="https://unpkg.com/element-plus"></script>
+    <script src="https://unpkg.com/@element-plus/icons-vue"></script>
+    <script>
+        const { createApp, ref, reactive, computed } = Vue;
+        
+        const app = createApp({
+            setup() {
+                // 登录状态
+                const isLoggedIn = ref(false);
+                const username = ref('');
+                const loading = ref(false);
+                const loginForm = reactive({ username: '', password: '', remember: false });
+                const rules = {
+                    username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+                    password: [{ required: true, message: '请输入密码', trigger: 'blur' }, { min: 6, message: '密码长度至少 6 位', trigger: 'blur' }]
+                };
+                
+                // 主界面
+                const activeMenu = ref('dashboard');
+                const pageTitle = computed(() => ({
+                    dashboard: '仪表盘',
+                    contacts: '名单管理',
+                    import: '导入名单',
+                    wechat: '企微联动',
+                    conversations: '会话管理',
+                    scoring: '意向打分',
+                    settings: '系统设置'
+                })[activeMenu.value]);
+                
+                // 统计数据
+                const stats = reactive({ contacts: 10245, added: 3856, conversations: 2104, highIntent: 428 });
+                
+                // 联系人
+                const contacts = ref([]);
+                const currentPage = ref(1);
+                const total = ref(0);
+                const pageSize = ref(20);
+                const searchKeyword = ref('');
+                const filterStatus = ref('');
+                const selectedContacts = ref([]);
+                
+                // 活动
+                const campaigns = ref([
+                    { id: 'camp_001', name: '3 月教育行业获客', status: 'RUNNING', statusText: '运行中', contactCount: 10000, addedCount: 3500, createdAt: '2026-03-01' },
+                    { id: 'camp_002', name: '金融行业精准获客', status: 'RUNNING', statusText: '运行中', contactCount: 5000, addedCount: 2100, createdAt: '2026-03-05' }
+                ]);
+                const recentCampaigns = ref(campaigns.value);
+                
+                // 导入
+                const importForm = reactive({ campaignId: '' });
+                const importing = ref(false);
+                
+                // 企微
+                const wechatAccounts = ref([
+                    { name: '客服 01', userId: 'wx_001', status: 'ACTIVE', statusText: '活跃', dailyAddCount: 35, riskLevel: 'LOW' },
+                    { name: '客服 02', userId: 'wx_002', status: 'ACTIVE', statusText: '活跃', dailyAddCount: 42, riskLevel: 'LOW' },
+                    { name: '客服 03', userId: 'wx_003', status: 'ACTIVE', statusText: '活跃', dailyAddCount: 28, riskLevel: 'MEDIUM' }
+                ]);
+                const autoAdding = ref(false);
+                const todayAdded = ref(105);
+                const dailyLimit = ref(150);
+                
+                // 会话
+                const conversations = ref([
+                    { contactName: '张先生', turnCount: 5, intentScore: 85, status: '进行中', lastMessageAt: '2026-03-17 10:30' },
+                    { contactName: '李女士', turnCount: 3, intentScore: 72, status: '进行中', lastMessageAt: '2026-03-17 11:15' },
+                    { contactName: '王总', turnCount: 8, intentScore: 92, status: '进行中', lastMessageAt: '2026-03-17 12:00' }
+                ]);
+                
+                // 意向等级
+                const intentLevels = ref([
+                    { level: 'A', name: '高意向', range: '80-100 分', action: '立即人工跟进' },
+                    { level: 'B', name: '中意向', range: '60-79 分', action: '持续培育' },
+                    { level: 'C', name: '低意向', range: '40-59 分', action: '自动化触达' },
+                    { level: 'D', name: '无意向', range: '0-39 分', action: '归档/移除' }
+                ]);
+                
+                // 设置
+                const settings = reactive({
+                    corpId: '',
+                    agentId: '',
+                    secret: '',
+                    llmProvider: 'dashscope',
+                    llmKey: ''
+                });
+                
+                // API 基础配置
+                const API_BASE = 'http://47.97.3.29:8080/api';
+                
+                // 方法
+                const handleLogin = async () => {
+                    loading.value = true;
+                    try {
+                        // TODO: 调用登录 API
+                        // const res = await fetch(API_BASE + '/auth/login', {
+                        //     method: 'POST',
+                        //     headers: { 'Content-Type': 'application/json' },
+                        //     body: JSON.stringify(loginForm)
+                        // });
+                        // const data = await res.json();
+                        
+                        // 模拟登录
+                        await new Promise(r => setTimeout(r, 1000));
+                        isLoggedIn.value = true;
+                        username.value = loginForm.username;
+                        ElementPlus.ElMessage.success('登录成功');
+                    } catch (error) {
+                        ElementPlus.ElMessage.error('登录失败');
+                    } finally {
+                        loading.value = false;
+                    }
+                };
+                
+                const handleLogout = () => {
+                    isLoggedIn.value = false;
+                    ElementPlus.ElMessage.success('已退出登录');
+                };
+                
+                const loadContacts = async () => {
+                    loading.value = true;
+                    try {
+                        // TODO: 调用 API
+                        contacts.value = [
+                            { id: 'c_001', phoneNumber: '138****8000', name: '张先生', status: 'ADDED', wechatId: 'wx_001', tags: { '意向': 'A', '行业': '教育' }, lastContactAt: '2026-03-17 10:30' },
+                            { id: 'c_002', phoneNumber: '139****9000', name: '李女士', status: 'CONVERSING', wechatId: 'wx_002', tags: { '意向': 'B', '行业': '金融' }, lastContactAt: '2026-03-17 11:15' },
+                            { id: 'c_003', phoneNumber: '136****6000', name: '王总', status: 'NEW', wechatId: '', tags: {}, lastContactAt: '' }
+                        ];
+                        total.value = 100;
+                    } finally {
+                        loading.value = false;
+                    }
+                };
+                
+                const handleSelectionChange = (selection) => {
+                    selectedContacts.value = selection;
+                };
+                
+                const batchDelete = () => {
+                    ElementPlus.ElMessageBox.confirm(`确定删除选中的 ${selectedContacts.value.length} 个联系人？`, '提示', {
+                        type: 'warning'
+                    }).then(() => {
+                        ElementPlus.ElMessage.success('删除成功');
+                        loadContacts();
+                    });
+                };
+                
+                const viewContact = (row) => {
+                    ElementPlus.ElMessage.info(`查看联系人：${row.name}`);
+                };
+                
+                const editTags = (row) => {
+                    ElementPlus.ElMessageBox.prompt('请输入标签 (格式：key:value,key:value)', '编辑标签', {
+                        inputValue: Object.entries(row.tags || {}).map(([k,v]) => `${k}:${v}`).join(','),
+                    }).then(({ value }) => {
+                        ElementPlus.ElMessage.success('标签已更新');
+                    });
+                };
+                
+                const handleImport = async () => {
+                    if (!importForm.campaignId) {
+                        ElementPlus.ElMessage.warning('请选择活动');
+                        return;
+                    }
+                    importing.value = true;
+                    try {
+                        await new Promise(r => setTimeout(r, 2000));
+                        ElementPlus.ElMessage.success('导入成功，共导入 100 条联系人');
+                    } finally {
+                        importing.value = false;
+                    }
+                };
+                
+                const startAutoAdd = () => {
+                    autoAdding.value = true;
+                    ElementPlus.ElMessage.success('已开始自动添加好友');
+                };
+                
+                const stopAutoAdd = () => {
+                    autoAdding.value = false;
+                    ElementPlus.ElMessage.info('已停止自动添加');
+                };
+                
+                const viewConversation = (row) => {
+                    ElementPlus.ElMessage.info(`查看会话：${row.contactName}`);
+                };
+                
+                const saveSettings = () => {
+                    ElementPlus.ElMessage.success('配置已保存');
+                };
+                
+                const getStatusType = (status) => ({
+                    NEW: 'info', IMPORTED: 'info', ADDING: 'warning', ADDED: 'success', CONVERSING: 'primary'
+                }[status] || 'info');
+                
+                const getStatusText = (status) => ({
+                    NEW: '新增', IMPORTED: '已导入', ADDING: '添加中', ADDED: '已添加', CONVERSING: '对话中'
+                }[status] || status);
+                
+                const getRiskType = (level) => ({
+                    LOW: 'success', MEDIUM: 'warning', HIGH: 'danger'
+                }[level] || 'info');
+                
+                const getScoreType = (score) => {
+                    if (score >= 80) return 'success';
+                    if (score >= 60) return 'warning';
+                    return 'info';
+                };
+                
+                // 初始化
+                loadContacts();
+                
+                return {
+                    isLoggedIn, username, loading, loginForm, rules, handleLogin, handleLogout,
+                    activeMenu, pageTitle, stats, recentCampaigns,
+                    contacts, currentPage, total, pageSize, searchKeyword, filterStatus, selectedContacts,
+                    loadContacts, handleSelectionChange, batchDelete, viewContact, editTags,
+                    campaigns, importForm, importing, handleImport,
+                    wechatAccounts, autoAdding, todayAdded, dailyLimit, startAutoAdd, stopAutoAdd,
+                    conversations, viewConversation,
+                    intentLevels, getScoreType,
+                    settings, saveSettings,
+                    getStatusType, getStatusText, getRiskType
+                };
+            }
+        });
+        
+        // 注册所有图标
+        for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+            app.component(key, component);
+        }
+        
+        app.use(ElementPlus);
+        app.mount('#app');
+    </script>
 </body>
 </html>
