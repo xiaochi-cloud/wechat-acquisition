@@ -8,4 +8,4 @@ P2|T201|Redis 缓存集成|TODO|0|-
 P2|T202|消息队列集成|TODO|0|-
 P2|T203|API 文档生成|TODO|0|-
 P0|T003|*|DONE|*|-
-P0|T003|前端部署到 Nginx|IN_PROGRESS|0|-
+P0|T003|前端部署到 Nginx|DONE|0|2026-03-18 19:21
