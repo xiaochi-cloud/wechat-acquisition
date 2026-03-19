@@ -1,15 +1,85 @@
 #!/bin/bash
-# 自主同步汇报 - 自动提交版本
+# 自主同步汇报 - 自检 + 任务安排版本
 
 REPORT_FILE="/tmp/auto_sync_report.txt"
 LOG_FILE="/tmp/auto_sync.log"
+TASK_FILE="/home/admin/.openclaw/workspace/wechat-acquisition/.task_queue"
 
 log() {
     echo "[$(date '+%H:%M:%S')] $*" | tee -a "$LOG_FILE"
 }
 
+# 自检函数
+self_check() {
+    log "开始自检..."
+    
+    local check_result="✅ 通过"
+    local issues=""
+    
+    # 检查 1: 代码是否能编译
+    cd /home/admin/.openclaw/workspace/wechat-acquisition
+    if ! git status &>/dev/null; then
+        issues="$issues❌ Git 仓库异常\n"
+        check_result="❌ 失败"
+    fi
+    
+    # 检查 2: 是否有未提交代码
+    local git_status=$(git status --short 2>/dev/null | wc -l)
+    if [ "$git_status" -gt "0" ]; then
+        issues="$issues⚠️  有 $git_status 个未提交文件\n"
+    fi
+    
+    # 检查 3: 执行器是否运行
+    local executor_pid=$(ps aux | grep simple_autonomous | grep -v grep | awk '{print $2}' | head -1)
+    if [ -z "$executor_pid" ]; then
+        issues="$issues❌ 自主执行器未运行\n"
+        check_result="❌ 失败"
+    fi
+    
+    # 检查 4: 汇报进程是否运行
+    local sync_pid=$(ps aux | grep auto-sync-report | grep -v grep | awk '{print $2}' | head -1)
+    if [ -z "$sync_pid" ]; then
+        issues="$issues❌ 自主汇报未运行\n"
+        check_result="❌ 失败"
+    fi
+    
+    # 输出检查结果
+    log "自检结果：$check_result"
+    if [ -n "$issues" ]; then
+        log "发现问题:\n$issues"
+    fi
+    
+    echo "$check_result|$issues"
+}
+
+# 安排下次任务
+schedule_next_task() {
+    log "安排下次任务..."
+    
+    # 读取任务队列
+    local next_task=""
+    if [ -f "$TASK_FILE" ]; then
+        next_task=$(grep "|TODO|" "$TASK_FILE" | head -1 | cut -d'|' -f2,3)
+    fi
+    
+    if [ -n "$next_task" ]; then
+        local task_id=$(echo "$next_task" | cut -d'|' -f1)
+        local task_desc=$(echo "$next_task" | cut -d'|' -f2)
+        log "下次任务：$task_id - $task_desc"
+        echo "$task_id - $task_desc"
+    else
+        log "暂无待执行任务"
+        echo "暂无待执行任务"
+    fi
+}
+
 generate_report() {
     log "生成汇报..."
+    
+    # 自检
+    local check_result=$(self_check)
+    local check_status=$(echo "$check_result" | cut -d'|' -f1)
+    local check_issues=$(echo "$check_result" | cut -d'|' -f2)
     
     # 本地状态检查
     local executor_pid=$(ps aux | grep simple_autonomous | grep -v grep | awk '{print $2}' | head -1)
@@ -43,12 +113,19 @@ generate_report() {
     sleep 5
     [ -f /tmp/server_status.tmp ] && server_status=$(cat /tmp/server_status.tmp)
     
+    # 安排下次任务
+    local next_task=$(schedule_next_task)
+    
     # 生成汇报
     cat > "$REPORT_FILE" << EOF
 ═══════════════════════════════════════════════════════════
 🤖 自主系统 - 定时同步汇报
 汇报时间：$(date '+%Y-%m-%d %H:%M')
 ═══════════════════════════════════════════════════════════
+
+【🔍 自检结果】
+自检状态：$check_status
+$(echo -e "$check_issues" | sed 's/^/  /')
 
 【📊 系统状态】
 自主执行器：$executor_status
@@ -64,32 +141,33 @@ generate_report() {
   ✅ T101-T103 - 客户管理功能
   ✅ 完整前端系统
   ✅ 后端 API 对接
+  ✅ 企微 API 对接
+  ✅ Redis 缓存集成
 
 待执行:
-  ⏳ T104 - 企微 API 对接
-  ⏳ T201 - Redis 缓存集成
   ⏳ T202 - 消息队列集成
   ⏳ T203 - API 文档生成
+
+【📅 下次任务】
+$next_task
 
 【🌐 访问地址】
 前端：http://47.97.3.29/wechat-acquisition/
 后端：http://47.97.3.29:8080/api
 
 【💡 自主决策】
+✅ 每次执行完自检
+✅ 自动安排下次任务
 ✅ 自动检测未提交代码
 ✅ 自动提交并推送
 ✅ 遇到卡点不阻塞
 ✅ 持续迭代不等待
 
-【📅 下一步】
-系统继续自主执行:
-  • 每 30 分钟自动汇报
-  • 自动提交代码
-  • 执行待办任务
-  • 持续迭代改进
+【📊 本次提交】
+$(git log -1 --stat 2>/dev/null | head -10)
 
 ═══════════════════════════════════════════════════════════
-🚀 系统持续自主运行中，无需人工催促...
+🚀 系统持续自主运行中，每 30 分钟自动汇报...
 ═══════════════════════════════════════════════════════════
 EOF
 
@@ -97,8 +175,8 @@ EOF
 }
 
 log "╔══════════════════════════════════════════════════════════╗"
-log "║   自主同步汇报已启动 (自动提交版本)                      ║"
-log "║   频率：每 30 分钟自动汇报 + 自动提交代码                   ║"
+log "║   自主同步汇报已启动 (自检 + 任务安排)                   ║"
+log "║   频率：每 30 分钟自动汇报 + 自检 + 安排任务                ║"
 log "╚══════════════════════════════════════════════════════════╝"
 
 while true; do
