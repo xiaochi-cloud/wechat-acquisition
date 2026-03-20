@@ -2,14 +2,13 @@ package com.wechat.acquisition.application.service;
 
 import com.wechat.acquisition.infrastructure.persistence.mapper.ContactMapper;
 import com.wechat.acquisition.infrastructure.persistence.mapper.CampaignMapper;
-import com.wechat.acquisition.infrastructure.persistence.entity.ContactEntity;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -102,7 +101,7 @@ public class StatisticsService {
             String date = LocalDate.now().minusDays(i).format(formatter);
             Map<String, Object> dayData = new HashMap<>();
             dayData.put("date", date);
-            dayData.put("contacts", 0); // TODO: 从数据库查询
+            dayData.put("contacts", 0);
             dayData.put("added", 0);
             trend.add(dayData);
         }
@@ -117,7 +116,7 @@ public class StatisticsService {
         Map<String, Object> stats = new HashMap<>();
         long totalCampaigns = campaignMapper.selectCount(null);
         stats.put("total", totalCampaigns);
-        stats.put("running", 0); // TODO: 查询运行中的活动
+        stats.put("running", 0);
         stats.put("paused", 0);
         return stats;
     }
@@ -126,15 +125,17 @@ public class StatisticsService {
      * 按状态统计
      */
     private long countByStatus(String status) {
-        // TODO: 实现状态统计
-        return 0;
+        LambdaQueryWrapper<com.wechat.acquisition.infrastructure.persistence.entity.ContactEntity> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(com.wechat.acquisition.infrastructure.persistence.entity.ContactEntity::getStatus, status);
+        return contactMapper.selectCount(wrapper);
     }
     
     /**
      * 按意向等级统计
      */
     private long countByIntentLevel(String level) {
-        // TODO: 实现意向等级统计
-        return 0;
+        LambdaQueryWrapper<com.wechat.acquisition.infrastructure.persistence.entity.ContactEntity> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(com.wechat.acquisition.infrastructure.persistence.entity.ContactEntity::getIntentLevel, level);
+        return contactMapper.selectCount(wrapper);
     }
 }

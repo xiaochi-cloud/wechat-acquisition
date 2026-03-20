@@ -112,4 +112,31 @@ public class TagService {
         wrapper.eq(TagEntity::getCategory, "preset");
         return tagMapper.selectList(wrapper);
     }
+    
+    /**
+     * 初始化预设标签
+     */
+    @Transactional
+    public void initPresets() {
+        log.info("初始化预设标签");
+        
+        List<TagEntity> presets = getPresets();
+        if (!presets.isEmpty()) {
+            log.info("预设标签已存在");
+            return;
+        }
+        
+        // 意向标签
+        createTag("高意向", "intent", "#F56C6C", "高意向客户");
+        createTag("中意向", "intent", "#E6A23C", "中意向客户");
+        createTag("低意向", "intent", "#409EFF", "低意向客户");
+        
+        // 行业标签
+        createTag("教育", "industry", "#409EFF", "教育行业");
+        createTag("金融", "industry", "#67C23A", "金融行业");
+        createTag("电商", "industry", "#E6A23C", "电商行业");
+        createTag("医疗", "industry", "#F56C6C", "医疗行业");
+        
+        log.info("预设标签初始化完成");
+    }
 }
